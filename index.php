@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: index.php 240 2011-04-02 17:52:06Z eureka2 $ */
+<?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
@@ -16,7 +16,7 @@ if (isset( $_GET['tab'] )) {
 $tab = $AppUI->getState( 'HelpDeskIdxTab' ) !== NULL ? $AppUI->getState( 'HelpDeskIdxTab' ) : 0;
 
 // Setup the title block
-$titleBlock = new CTitleBlock( 'Help Desk', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
+$titleBlock = new w2p_Theme_TitleBlock( 'Help Desk', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
 
 if (hditemCreate()) {
   $titleBlock->addCell(

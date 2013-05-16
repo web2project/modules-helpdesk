@@ -404,8 +404,7 @@ $rows = $q->loadList();
 
 // Setup the title block
 if (!$_REQUEST['project_id'] && !$_REQUEST['company_id']) {
-#$titleBlock = new CTitleBlock( 'Help Desk', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
-$titleBlock = new w2p_Theme_TitleBlock( 'Help Desk', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
+$titleBlock = new CTitleBlock( 'Help Desk', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
 
 if (hditemCreate()) {
   $titleBlock->addCell(

@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: addedit.php 358 2012-03-25 06:31:37Z caseydk $ */
+<?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
@@ -134,7 +134,7 @@ if($item_id) {
 // Setup the title block
 $ttl = $item_id ? 'Editing Help Desk Item' : 'Adding Help Desk Item';
 
-$titleBlock = new CTitleBlock( $ttl, 'helpdesk.png', $m, "$m.$a" );
+$titleBlock = new w2p_Theme_TitleBlock( $ttl, 'helpdesk.png', $m, "$m.$a" );
 $titleBlock->addCrumb( "?m=helpdesk", 'home' );
 $titleBlock->addCrumb( "?m=helpdesk&a=list", 'list');
 
@@ -205,6 +205,9 @@ function popContactDialog() {
     print $compId . ";";
 ?>
     var selected_contacts_id = $('item_requestor_id').value;
+// J: fix error populating ticket
+    if (selected_contacts_id == undefined){selected_contacts_id=""};
+//
     window.open('./index.php?m=public&a=contact_selector&dialog=1&call_back=setRequestor&selected_contacts_id='+selected_contacts_id+'&company_id='+company_id, 'contacts','height=600,width=400,resizable,scrollbars=yes');
 }
 

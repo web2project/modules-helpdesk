@@ -60,7 +60,7 @@ $reports = $AppUI->readFiles( w2PgetConfig( 'root_dir' )."/modules/$m/reports", 
 
 // setup the title block
 if (! $suppressHeaders) {
-	$titleBlock = new CTitleBlock( 'Helpdesk Reports', 'applet3-48.png', $m, "$m.$a" );
+	$titleBlock = new w2p_Theme_TitleBlock( 'Helpdesk Reports', 'applet3-48.png', $m, "$m.$a" );
 	$titleBlock->addCrumb( "?m=helpdesk", "home" );
 	$titleBlock->addCrumb( "?m=helpdesk&a=list", "list" );
 	if ($report_type) {

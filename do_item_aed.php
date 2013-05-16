@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: do_item_aed.php 241 2011-04-02 19:14:22Z eureka2 $ */
+<?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
@@ -47,8 +47,8 @@ if($do_task_log){ // called from HD task log
 		$hditem->item_assigned_to = $new_assignee;
   	$update_item=1;
   }
-  if ($update_item=1) {
-  	if (($msg = $hditem->store())) {
+  if ($update_item==1) {
+  	if (($msg = $hditem->store()) !== true) {
 			$AppUI->setMsg( $msg, UI_MSG_ERROR );
 			$AppUI->redirect();
 		} 
@@ -70,7 +70,7 @@ if($do_task_log){ // called from HD task log
 	$AppUI->setMsg('Task Log');
 
   $obj->task_log_costcode = $obj->task_log_costcode;
-  if ($msg = $obj->store()) {
+  if ($msg = $obj->store() !== true) {
     $AppUI->setMsg( $msg, UI_MSG_ERROR );
     $AppUI->redirect();
   } else {
@@ -89,6 +89,7 @@ if($do_task_log){ // called from HD task log
   }
 	$AppUI->redirect("m=helpdesk&a=view&item_id=$item_id&tab=0");
 } else {  // for creating or editting Helpdesk items
+
 	$hditem = new CHelpDesk();
 	if ( !$hditem->bind( $_POST )) {
 		$AppUI->setMsg( $hditem->error, UI_MSG_ERROR );
@@ -100,7 +101,7 @@ if($do_task_log){ // called from HD task log
 	if ($del) {// to delete an item
   	$hditem->load( $item_id );
 		$hditem->item_updated = $udate;
-		if (($msg = $hditem->store())){ 
+		if (($msg = $hditem->store()) !== true){ 
 			$AppUI->setMsg( $msg, UI_MSG_ERROR );
 			$AppUI->redirect();
 		}
@@ -188,7 +189,7 @@ if($do_task_log){ // called from HD task log
             $file_obj->file_version_id = $latest_file_version + 1;
         }
 
-        if (($msg = $file_obj->store())) {
+        if (($msg = $file_obj->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
         }
         // add the link of the file to the description of the helpdesk item
@@ -198,7 +199,7 @@ if($do_task_log){ // called from HD task log
         $hditem->item_summary=$hditem->item_summary . $hd_file_info;
     }// end of file uploading
 
-  	if (($msg = $hditem->store())) {
+  	if (($msg = $hditem->store()) !== true) {
 			$AppUI->setMsg( $msg, UI_MSG_ERROR );
 		} else {
 	    if($new_item) {// new item creation
@@ -210,7 +211,7 @@ if($do_task_log){ // called from HD task log
  					$AppUI->setMsg( $obj->getError(), UI_MSG_ERROR );
  					$AppUI->redirect();
  				}
- 				if (($msg = $obj->store())) {
+ 				if (($msg = $obj->store()) !== true) {
    				$AppUI->setMsg( $msg, UI_MSG_ERROR );
    				$AppUI->redirect();
  				}	
@@ -218,7 +219,7 @@ if($do_task_log){ // called from HD task log
         if($file_obj){
           $file_obj->file_description = $AppUI->_('This file is associated with helpdesk item') . ' ' .$hditem->item_id . ' ('. $hditem->item_title . ')';
           $file_obj->file_helpdesk_item=$hditem->item_id;
-          if (($msg = $file_obj->store())) {
+          if (($msg = $file_obj->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
           }
         }

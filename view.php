@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: view.php 241 2011-04-02 19:14:22Z eureka2 $ */
+<?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
@@ -36,7 +36,7 @@ $q->addWhere('item_id = ' . $item_id);
 
 $hditem = $q->loadHash();
 if (!$hditem ) {
-	$titleBlock = new CTitleBlock( $AppUI->_('Invalid item id'), 'helpdesk.png', $m, 'ID_HELP_HELPDESK_VIEW' );
+	$titleBlock = new w2p_Theme_TitleBlock( $AppUI->_('Invalid item id'), 'helpdesk.png', $m, 'ID_HELP_HELPDESK_VIEW' );
 	$titleBlock->addCrumb( "?m=helpdesk", 'home' );
 	$titleBlock->addCrumb( "?m=helpdesk&a=list", 'list' );
 	$titleBlock->show();
@@ -70,7 +70,7 @@ if (!$hditem ) {
     $q->addOrder('contact_last_name, contact_first_name');
     $watchers = $q->loadList();
 
-    $titleBlock = new CTitleBlock( 'Viewing Help Desk Item', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
+    $titleBlock = new w2p_Theme_TitleBlock( 'Viewing Help Desk Item', 'helpdesk.png', $m, 'ID_HELP_HELPDESK_IDX' );
     if (hditemCreate()) {
         $titleBlock->addCell(
             '<input type="submit" class="button" value="'.$AppUI->_('new item').'" />', '',

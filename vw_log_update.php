@@ -1,4 +1,4 @@
-<?php /* $Id: vw_log_update.php 241 2011-04-02 19:14:22Z eureka2 $ */
+<?php /* $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }

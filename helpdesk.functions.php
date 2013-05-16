@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: helpdesk.functions.php 240 2011-04-02 17:52:06Z eureka2 $ */
+<?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }

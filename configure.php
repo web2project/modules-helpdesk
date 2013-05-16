@@ -1,4 +1,4 @@
-<?php /* HELPDESK $Id: configure.php 140 2010-07-08 06:31:50Z caseydk $ */ 
+<?php /* HELPDESK $Id$ */ 
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
@@ -304,7 +304,7 @@ foreach ($config_options as $key=>$value){
 }
 
 // setup the title block
-$titleBlock = new CTitleBlock( 'Configure Help Desk Module', 'helpdesk.png', $m, "$m.$a" );
+$titleBlock = new w2p_Theme_TitleBlock( 'Configure Help Desk Module', 'helpdesk.png', $m, "$m.$a" );
 $titleBlock->addCrumb( "?m=system", "System Admin" );
 $titleBlock->addCrumb( "?m=system&a=viewmods", "Modules" );
 $titleBlock->show();
