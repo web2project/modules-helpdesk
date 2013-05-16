@@ -1,0 +1,17 @@
+2009-07-16 - Field "Hours worked" added to helpdesk item edit form. Can be used to log spent time when creating new item  
+2009-07-20 - permissions related updates
+2009-07-22 - notification system redesigned to be more flexible and to minimize emails sent:
+              - only one email is sent when tasklog modified status/calltype/etc.
+              - unified email format for tasklogs and ticket modifications emails
+              - if ticket is created and remain Unassigned email is sent
+                to an address defined in helpdesk configuration in case of email notification required
+              - added configuration radioboxes to choose whether watchers / requestor 
+                are notified about all logs or only about status changes (incl. requestor change & calltype change)
+              - emails are not sent to current user      
+           - if ticket is created by an user from non-helpdesk company, the user is filled-in as requestor
+           - localization applied on notification texts ( I hope everywhere ) 
+2009-07-24 - when adding watchers notifications were not send always correctly. Unified with another notification emails.
+
+           
+ 
+              
