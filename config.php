@@ -27,7 +27,7 @@ $HELPDESK_CONFIG['search_criteria_service'] = '1';
 $HELPDESK_CONFIG['default_notify_by_email'] = '1';
 $HELPDESK_CONFIG['task_watchers_notification'] = '1';
 $HELPDESK_CONFIG['task_requestor_notification'] = '1';
-$HELPDESK_CONFIG['notity_email_address'] = 'test@example.com';
+$HELPDESK_CONFIG['notity_email_address'] = 'jarrebola@viachannel.com';
 $HELPDESK_CONFIG['email_subject'] = '[HELPDESK]';
 $HELPDESK_CONFIG['email_header'] = 'Ticket Management Registry';
 ?>

@@ -3,6 +3,8 @@ if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
 
+global $AppUI;
+
 $q = new w2p_Database_Query; 
 $q->addQuery('helpdesk_items.*, CONCAT(co.contact_first_name,\' \',co.contact_last_name) assigned_fullname,
             p.project_id, p.project_name, p.project_color_identifier');

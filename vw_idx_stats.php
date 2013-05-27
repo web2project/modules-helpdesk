@@ -3,7 +3,7 @@ if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
 
-global $m, $ict, $ist;
+global $m, $ict, $ist, $AppUI;
 
 $stats = array();
 
