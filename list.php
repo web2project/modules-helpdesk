@@ -8,8 +8,6 @@ $allowedProjects = getAllowedProjects();
 $ipr = w2PgetSysVal( 'HelpDeskPriority' );
 $ist = w2PgetSysVal( 'HelpDeskStatus' );
 
-$AppUI->savePlace();
-
 $df = $AppUI->getPref( 'SHDATEFORMAT' );
 $tf = $AppUI->getPref( 'TIMEFORMAT' );
 $format = $df." ".$tf;

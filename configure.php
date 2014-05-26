@@ -8,14 +8,12 @@ include_once("helpdesk.functions.php");
 
 // Deny all but system admins
 if (!canView('system')) {
-	$AppUI->redirect( "m=public&a=access_denied" );
+	$AppUI->redirect(ACCESS_DENIED);
 }
 
 @include_once( "./functions/admin_func.php" );
 
 $CONFIG_FILE = "./modules/helpdesk/config.php";
-
-$AppUI->savePlace();
 
 // get a list of permitted companies
 $company = new CCompany();
