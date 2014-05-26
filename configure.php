@@ -102,10 +102,6 @@ $config_options = array(
 		"value" => '',
     'type' => 'select',
     'list' => $assignUsers       
-    //"value" => 1,
-		//'type' => 'radio',
-    //'buttons' => array (1 => $AppUI->_('Yes'),
-     //                  0 => $AppUI->_('No'))
 	),
 	"default_company_current_company" => array(	 
 		"description" => $AppUI->_('Default Company'),

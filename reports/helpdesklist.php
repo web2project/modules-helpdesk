@@ -10,7 +10,6 @@ if (!defined('W2P_BASE_DIR')) {
 global $AppUI, $cal_sdf;
 $AppUI->loadCalendarJS();
 
-//error_reporting( E_ALL );
 $do_report = w2PgetParam($_POST, 'do_report', 0);
 $log_all = w2PgetParam($_POST, 'log_all', 0);
 $log_pdf = w2PgetParam($_POST, 'log_pdf', 0);
@@ -27,7 +26,7 @@ if ($period) {
 	$ts = $today->format(FMT_TIMESTAMP_DATE);
 	if (strtok($period, ' ') == $AppUI->_('Next')) {
 		$sign = + 1;
-	} else { //if(...)
+	} else {
 		$sign = -1;
 	}
 
@@ -312,7 +311,6 @@ if ($log_pdf) {
 		$pdf->selectFont($font_dir . '/Helvetica.afm');
 
 		$pdf->ezText(w2PgetConfig('company_name'), 12);
-		// $pdf->ezText( w2PgetConfig( 'company_name' ).' :: '.w2PgetConfig( 'page_title' ), 12 );		
 
 		$date = new w2p_Utilities_Date();
 		$pdf->ezText("\n" . $date->format($df), 8);
@@ -329,7 +327,6 @@ if ($log_pdf) {
 		}
 		$pdf->ezText( "\n" );
 		$pdf->selectFont( "$font_dir/Helvetica.afm" );
-		//$columns = null; This is already defined above... :)
 		$title = null;
 		$options = array(
 			'showLines' => 2,

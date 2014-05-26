@@ -15,5 +15,3 @@ if (canView('helpdesk')) {
         }
 vw_idx_handler(3);
 }
-?>
-

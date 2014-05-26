@@ -89,7 +89,6 @@ class CHelpDesk extends w2p_Core_BaseObject {
     }
 
     public function store() {
-//        $perms = $this->_AppUI->acl();
         $stored = false;
 
         $errorMsgArray = $this->check();
@@ -106,7 +105,6 @@ class CHelpDesk extends w2p_Core_BaseObject {
             case '0'://it's not a user or a contact
                 break;
             case '1'://it's a system user
-//                $q = new w2p_Database_Query();
                 $q = $this->_getQuery();
                 $q->addTable('users','u');
                 $q->addQuery('u.user_id as id');
@@ -117,7 +115,6 @@ class CHelpDesk extends w2p_Core_BaseObject {
                 $q->addWhere('u.user_id='.$this->item_requestor_id);
                 break;
             case '2': //it's only a contact
-//                $q = new w2p_Database_Query();
                 $q = $this->_getQuery();
                 $q->addTable('contacts','c');
                 $q->addQuery("CONCAT(c.contact_first_name,' ', c.contact_last_name) as name");
@@ -144,10 +141,9 @@ class CHelpDesk extends w2p_Core_BaseObject {
          *   included. Review one fo the core core classes - like CLink - for
          *   the standard structure.
          */
-	$stored = false;
+    	$stored = false;
 
-//                $q = new w2p_Database_Query();
-                $q = $this->_getQuery();
+        $q = $this->_getQuery();
         $this->item_modified  = $q->dbfnNowWithTZ();
         if ($this->item_id) {
             if (($msg = parent::store())) {
@@ -169,13 +165,10 @@ class CHelpDesk extends w2p_Core_BaseObject {
         $contact = new CContact();
         $contact->load($contact_id);
 
-        #return $contact->contact_order_by.'||'.$contact->contact_phone.'||'.$contact->contact_email.'||';
         return $contact->contact_first_name.' '.$contact->contact_last_name.'||'.$contact->contact_phone.'||'.$contact->contact_email.'||';
     }
 
     public function delete() {
-//        $perms = $this->_AppUI->acl();
-
 		// This section will grant every request to delete an HDitem
 		$k = $this->_tbl_key;
 		if ($oid) {
@@ -185,8 +178,8 @@ class CHelpDesk extends w2p_Core_BaseObject {
 		$this->load($this->item_id);
 		addHistory($this->_tbl, $this->$k, 'delete', $this->item_title, $this->item_project_id);
 		$result = null;
-//                $q = new w2p_Database_Query();
-                $q = $this->_getQuery();
+
+        $q = $this->_getQuery();
 		$q->setDelete($this->_tbl);
 		$q->addWhere("$this->_tbl_key = '".$this->$k."'");
 		if (!$q->exec()) {
@@ -229,8 +222,7 @@ class CHelpDesk extends w2p_Core_BaseObject {
       if (($type!=TASK_LOG) || $HELPDESK_CONFIG['task_watchers_notification'] ) {
         // Pull up the email address of everyone on the watch list 
         // this list does not include the assignee
-//                $q = new w2p_Database_Query();
-                $q = $this->_getQuery();
+        $q = $this->_getQuery();
       	$q->addTable('helpdesk_item_watchers','hdw');
       	$q->addQuery('contact_email');
       	$q->addJoin('users','u','hdw.user_id = u.user_id');
@@ -254,8 +246,7 @@ class CHelpDesk extends w2p_Core_BaseObject {
         //add the assigned user email to the list of mailing people
         if (isset($this->item_assigned_to)) {
           $assigned_user_email = array();
-//                $q = new w2p_Database_Query();
-                $q = $this->_getQuery();
+          $q = $this->_getQuery();
           $q->addTable('users','u');
           $q->addQuery('contact_email');
       	  $q->addJoin('contacts','c','u.user_contact = c.contact_id');
@@ -284,14 +275,14 @@ class CHelpDesk extends w2p_Core_BaseObject {
 		switch ($type) {
 			case STATUS_LOG:
 			case NEW_ITEM_LOG:
-    		if($type==NEW_ITEM_LOG) {
-          $subject .= $this->_AppUI->_('Created');
-       	  if (!isset($this->item_status) || ($ist[$this->item_status]=='Unassigned') )  {
-            $email_list[] = $HELPDESK_CONFIG['notity_email_address'];
-          }  
-        } else {
-          $subject .= $this->_AppUI->_('Updated');
-    		}
+                if($type==NEW_ITEM_LOG) {
+                    $subject .= $this->_AppUI->_('Created');
+                    if (!isset($this->item_status) || ($ist[$this->item_status]=='Unassigned') )  {
+                        $email_list[] = $HELPDESK_CONFIG['notity_email_address'];
+                    }
+                } else {
+                    $subject .= $this->_AppUI->_('Updated');
+                }
 				$body .= $this->_AppUI->_('Call Type') . "  : " . $ict[$this->item_calltype]."\n";
 				$body .= $this->_AppUI->_('Status') . "  : " . $ist[$this->item_status]."\n";
 				$body .= $this->_AppUI->_('Summary') . "  : \n" . $this->item_summary."\n";
@@ -371,8 +362,7 @@ class CHelpDesk extends w2p_Core_BaseObject {
           switch($value){
             // Create the comments here
             case 'item_assigned_to':
-//                $q = new w2p_Database_Query();
-                $q = $this->_getQuery();
+              $q = $this->_getQuery();
               $q->addQuery('user_id, concat(contact_first_name,\' \',contact_last_name) as user_name');
               $q->addTable('users');
               $q->addJoin('contacts','','user_contact = contact_id');

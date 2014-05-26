@@ -24,7 +24,7 @@ if ($item_id) {
 }
 
 if(!$canEdit){
-  $AppUI->redirect( "m=public&a=access_denied" );
+    $AppUI->redirect(ACCESS_DENIED);
 }
 
 //KZHAO 10-24-2006

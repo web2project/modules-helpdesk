@@ -19,15 +19,13 @@ if ($task_log_id) {
 	// Problem: the $HELPDESK_CONFIG['minimum_edit_level'] is based on pre-defined user types in dP/functions/admin_func.php
 	// the user types are not consistent with the user type defined for actual users...
 	// Solution: use hard-coded admin user type 7 here
-	//$can_edit_task_logs = $HELPDESK_CONFIG['minimum_edit_level']>=$AppUI->user_type;
 	if($HELPDESK_CONFIG['minimum_edit_level']>=$AppUI->user_type || $AppUI->user_type==7)
 		$can_edit_task_logs=true;
 
-	//echo "---".$AppUI->user_type.">".$HELPDESK_CONFIG['minimum_edit_level']."!!!!";
 	if (!$can_edit_task_logs)
 	{	
 		if($log->task_log_creator!= $AppUI->user_id){
-			$AppUI->redirect( "m=public&a=access_denied" );
+            $AppUI->redirect(ACCESS_DENIED);
 		}
 	}
 } else {
@@ -80,12 +78,10 @@ function updateStatus(obj){
 	function timerStart() {
 		if(!timerID){ // this means that it needs to be started
 			timerSet();
-			//document.editFrm.timerStartStopButton.value = '<?php echo $AppUI->_('Stop'); ?>';
 			button = document.getElementById('timerStartStopButton');
 			button.innerHTML = '<?php echo $AppUI->_('Stop'); ?>';
             UpdateTimer();
 		} else { // timer must be stoped
-			//document.editFrm.timerStartStopButton.value = '<?php echo $AppUI->_('Start'); ?>';
 			button = document.getElementById('timerStartStopButton');
 			button.innerHTML = '<?php echo $AppUI->_('Start'); ?>';
 			document.getElementById('timerStatus').innerHTML = '';

@@ -35,7 +35,7 @@ if ($item_id) {
 
 
 if(!$canEdit) {
-    $AppUI->redirect( "m=public&a=access_denied" );
+    $AppUI->redirect(ACCESS_DENIED);
 }
 // Use new default 'assigned to' ---KZHAO
 if(!@$hditem["item_assigned_to"]) {

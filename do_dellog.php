@@ -8,15 +8,15 @@ $isNotNew = $_POST['task_log_id'];
 $perms = &$AppUI->acl();
 if ($del) {
 	if (!$perms->checkModule('task_log', 'delete')) {
-		$AppUI->redirect('m=public&a=access_denied');
+        $AppUI->redirect(ACCESS_DENIED);
 	}
 } elseif ($isNotNew) {
 	if (!$perms->checkModule('task_log', 'edit')) {
-		$AppUI->redirect('m=public&a=access_denied');
+        $AppUI->redirect(ACCESS_DENIED);
 	}
 } else {
 	if (!$perms->checkModule('task_log', 'add')) {
-		$AppUI->redirect('m=public&a=access_denied');
+        $AppUI->redirect(ACCESS_DENIED);
 	}
 }
 

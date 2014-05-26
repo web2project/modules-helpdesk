@@ -139,7 +139,7 @@ if($do_task_log){ // called from HD task log
         $acl =& $AppUI->acl();
         if ( ! $acl->checkModule('files', 'add')) {
             $AppUI->setMsg($AppUI->_( "noDeletePermission" ));
-            $AppUI->redirect('m=public&a=access_denied');
+            $AppUI->redirect(ACCESS_DENIED);
         }
         $file_obj->_message = 'added';
         $file_info['file_version'] = 1.0;
@@ -254,8 +254,6 @@ function doWatchers($list, $hditem, $notify_all){//KZHAO 8-7-2006
 	$sql = "DELETE FROM helpdesk_item_watchers WHERE item_id=" . $hditem->item_id;
 	db_exec($sql);
 	
-	//print_r($current_users);
-	//echo "!!!<br>";
 	if (!$del){
 		if($list){
 			foreach($watcherlist as $watcher){

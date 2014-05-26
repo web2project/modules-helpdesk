@@ -12,7 +12,7 @@ $AppUI->loadCalendarJS();
 
 $perms = &$AppUI->acl();
 if (!$perms->checkModule('task_log', 'view')) {
-	$AppUI->redirect('m=public&a=access_denied');
+    $AppUI->redirect(ACCESS_DENIED);
 }
 $do_report = w2PgetParam($_GET, 'do_report', 0);
 $log_all = w2PgetParam($_GET, 'log_all', 0);
@@ -333,8 +333,6 @@ if ($do_report) {
 		$pdf->selectFont($font_dir . '/Helvetica.afm');
 
 		$pdf->ezText(w2PgetConfig('company_name'), 12);
-
-		// $pdf->ezText( w2PgetConfig( 'company_name' ).' :: '.w2PgetConfig( 'page_title' ), 12 );
 
 		$date = new w2p_Utilities_Date();
 		$pdf->ezText("\n" . $date->format($df), 8);

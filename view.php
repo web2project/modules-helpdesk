@@ -47,7 +47,7 @@ if (!$hditem ) {
     $canEdit = $perms->checkModule($m, 'edit') && hditemEditable($hditem);
 
     if(!$canRead && !$canEdit){
-        $AppUI->redirect( "m=public&a=access_denied" );
+        $AppUI->redirect(ACCESS_DENIED);
     }
 
     $name = $hditem['item_requestor'];
