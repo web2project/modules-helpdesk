@@ -1,6 +1,6 @@
 <?php /* HELPDESK $Id: setup.php,v 1.47 2005/10/07 16:09:10 pedroix Exp $ */
 if (!defined('W2P_BASE_DIR')) {
-	die('You should not access this file directly');
+    die('You should not access this file directly');
 }
 
 /* Help Desk module definitions */
@@ -24,9 +24,10 @@ if (@$a == 'setup') {
 print w2PshowModuleConfig( $config );
 }
 
-class CSetupHelpDesk {
-
-    public function install() {
+class CSetupHelpDesk
+{
+    public function install()
+    {
         $success = true;
         $bulk_sql[] = "
             CREATE TABLE helpdesk_items (
@@ -120,10 +121,12 @@ class CSetupHelpDesk {
 
         global $AppUI;
         $perms = $AppUI->acl();
+
         return $perms->registerModule('Help Desk', 'helpdesk');
     }
 
-    public function remove() {
+    public function remove()
+    {
         $success = true;
 
         $bulk_sql[] = "DROP TABLE helpdesk_items";
@@ -167,7 +170,8 @@ class CSetupHelpDesk {
         return $success;
     }
 
-    public function upgrade($old_version) {
+    public function upgrade($old_version)
+    {
         $success = true;
 
         switch ($old_version) {
@@ -248,10 +252,12 @@ class CSetupHelpDesk {
 
         global $AppUI;
         $perms = $AppUI->acl();
+
         return $perms->registerModule('Help Desk', 'helpdesk');
     }
 
-    public function configure() {
+    public function configure()
+    {
         global $AppUI;
 
         $AppUI->redirect("m=helpdesk&a=configure");

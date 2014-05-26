@@ -6,4 +6,3 @@
 
 ALTER TABLE helpdesk_items ADD item_updated datetime DEFAULT NULL;
 ALTER TABLE helpdesk_items ADD item_deadline datetime DEFAULT NULL;
-

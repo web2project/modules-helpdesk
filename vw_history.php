@@ -1,6 +1,6 @@
 <?php
 if (!defined('W2P_BASE_DIR')) {
-	die('You should not access this file directly');
+    die('You should not access this file directly');
 }
 
 global $HELPDESK_CONFIG, $hditem, $isa, $m, $item_id;
@@ -20,7 +20,7 @@ if (isset($_GET['page'])) {
 
 $page = $AppUI->getState('HelpDeskLogPage') ? $AppUI->getState('HelpDeskLogPage') : 0;
 
-$q = new w2p_Database_Query; 
+$q = new w2p_Database_Query;
 $q->addQuery('*, TRIM(CONCAT(co.contact_first_name,\' \',co.contact_last_name)) modified_by');
 $q->addQuery('contact_email AS email');
 $q->addTable('helpdesk_item_status','h');
@@ -38,7 +38,7 @@ $offset = $page * $status_log_items_per_page;
 $q->setLimit($status_log_items_per_page,$offset);
 // Get the actual, paginated results
 $status_log = $q->loadList();
-  
+
 ?>
 
 <table border="0" cellpadding="4" cellspacing="0" width="100%" >
@@ -91,7 +91,7 @@ if (is_array($status_log)) {
   foreach ($status_log as $log) {
     $log_date = new w2p_Utilities_Date($log['status_date']);
     $date = $log_date->format( $df );
-    if($date!=$last_date){
+    if ($date!=$last_date) {
       $last_date = $date;
     ?>
     <tr>
@@ -99,17 +99,17 @@ if (is_array($status_log)) {
     </tr>
     <?php
     }
-  
+
     $time = $log_date->format( $tf );
     ?>
     <tr>
       <td class="hilite" nowrap="nowrap" width="1%"><?php echo $time?></td>
       <td class="hilite" nowrap="nowrap" width="1%"><?php echo ($log['email']?"<a href=\"mailto: {$log['email']}\">{$log['modified_by']}</a>":$log['modified_by'])?></td>
       <td class="hilite" width="98%"><?php
-        if($log['status_code']==0 || $log['status_code']==18){
+        if ($log['status_code']==0 || $log['status_code']==18) {
           // Created or Deleted
           print $AppUI->_($isa[$log['status_code']]);
-        } else if ($log['status_code'] == 16) {
+        } elseif ($log['status_code'] == 16) {
           // Comment
           print "<a href=\"javascript:void(0);\"
                     onClick=\"toggle_comment('{$log['status_id']}_short');

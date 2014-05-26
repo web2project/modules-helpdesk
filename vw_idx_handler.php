@@ -1,6 +1,6 @@
 <?php /* HELPDESK $Id: vw_idx_handler.php,v 1.23 2005/12/28 20:05:45 theideaman Exp $*/
 if (!defined('W2P_BASE_DIR')) {
-	die('You should not access this file directly');
+    die('You should not access this file directly');
 }
 
   /*
@@ -8,7 +8,8 @@ if (!defined('W2P_BASE_DIR')) {
    * closed = 1
    * mine = 2
    */
-function vw_idx_handler ($type) {
+function vw_idx_handler($type)
+{
   global $m, $ipr, $ist, $AppUI;
   global $project_id;
 
@@ -17,28 +18,28 @@ function vw_idx_handler ($type) {
 
   $where = $date_field_name = $date_field_title = "";
 
-  switch($type){
-  	case 0:// newly created open ticket today
-  		$date_field_title = $AppUI->_('Opened On');
-  		$date_field_name = "item_created";
-		$where .= "(TO_DAYS(NOW()) - TO_DAYS(his.status_date) = 0) AND item_status = 1 AND (his.status_code = 0)";
-  		break;
-  	case 1:// Closed today
-  		$date_field_title = $AppUI->_('Closed On');
-  		$date_field_name = "status_date";
-		$where .= "item_status=2 AND (TO_DAYS(NOW()) - TO_DAYS(status_date) = 0) AND status_code=11";
-  		break;
-  	case 2: // Mine open
-  		$date_field_title = $AppUI->_('Opened On');
-  		$date_field_name = "item_created";
+  switch ($type) {
+    case 0:// newly created open ticket today
+        $date_field_title = $AppUI->_('Opened On');
+        $date_field_name = "item_created";
+        $where .= "(TO_DAYS(NOW()) - TO_DAYS(his.status_date) = 0) AND item_status = 1 AND (his.status_code = 0)";
+        break;
+    case 1:// Closed today
+        $date_field_title = $AppUI->_('Closed On');
+        $date_field_name = "status_date";
+        $where .= "item_status=2 AND (TO_DAYS(NOW()) - TO_DAYS(status_date) = 0) AND status_code=11";
+        break;
+    case 2: // Mine open
+        $date_field_title = $AppUI->_('Opened On');
+        $date_field_name = "item_created";
                 $where .= "item_assigned_to={$AppUI->user_id} AND item_status !=2 ";
-  		break;
+        break;
         case 3: // Any state by project
                 $date_field_title = $AppUI->_('Opened On');
                 $date_field_name = "item_created";
                 $where .= "item_project_id = $project_id";
                 break;
-  	default:
+    default:
       print "Shouldn't be here (for now)";
       exit(1);
   }
@@ -55,7 +56,7 @@ function vw_idx_handler ($type) {
    * Delete = 4
    * Testing = 5
    */
-   
+
     $item_perms = getItemPerms();
     $q = new w2p_Database_Query;
     $q->addQuery('hi.*, CONCAT(co.contact_first_name,\' \',co.contact_last_name) assigned_fullname');
@@ -93,7 +94,7 @@ function vw_idx_handler ($type) {
     /* We need to check if the user who requested the item is still in the
        system. Just because we have a requestor id does not mean we'll be
        able to retrieve a full name */
-    	
+
     if ($row[$date_field_name]) {
       $date = new w2p_Utilities_Date( $row[$date_field_name] );
       $tc = $date->format( $format );
