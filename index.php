@@ -3,12 +3,13 @@ if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
 
+include_once("helpdesk.functions.php");
+
 // check permissions for this module
 $canReadModule = canView( $m );
 if (!$canReadModule) {
-	$AppUI->redirect( "m=public&a=access_denied" );
+	$AppUI->redirect(ACCESS_DENIED);
 }
-$AppUI->savePlace();
 
 if (isset( $_GET['tab'] )) {
 	$AppUI->setState( 'HelpDeskIdxTab', $_GET['tab'] );

@@ -2,7 +2,7 @@
 if (!defined('W2P_BASE_DIR')) {
 	die('You should not access this file directly');
 }
-
+include_once("helpdesk.functions.php");
 /* This file will write a php config file to be included during execution of
  * all helpdesk files which require the configuration options. */
 
