@@ -1,6 +1,6 @@
 <?php /* HELPDESK $Id: export.php v 0.1*/
 if (!defined('W2P_BASE_DIR')) {
-	die('You should not access this file directly');
+    die('You should not access this file directly');
 }
 
 //KZHAO  10-24-2006
@@ -8,7 +8,7 @@ global $HELPDESK_CONFIG, $w2Pconfig;
 $item_id = (int) w2PgetParam($_GET, 'item_id', 0);
 
 // Pull data
-$q = new w2p_Database_Query; 
+$q = new w2p_Database_Query;
 $q->addQuery('*');
 $q->addTable('helpdesk_items');
 $q->addWhere('item_id = ' . $item_id);
@@ -20,10 +20,11 @@ if ($item_id) {
     $canEdit = $perms->checkModule($m, 'edit') && hditemEditable($hditem);
 } else {
     echo "Cannot find the item id!";
+
     return;
 }
 
-if(!$canEdit){
+if (!$canEdit) {
     $AppUI->redirect(ACCESS_DENIED);
 }
 
@@ -33,29 +34,29 @@ $org_hditem = new CHelpDesk();
 $org_hditem->load( $item_id );
 
 //Check required information before export
-if(!@$hditem["item_project_id"]){
-	 $AppUI->setMsg( "Project must be specified for this item before exporting to task!" , UI_MSG_ERROR );
-         $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id");		 
+if (!@$hditem["item_project_id"]) {
+     $AppUI->setMsg( "Project must be specified for this item before exporting to task!" , UI_MSG_ERROR );
+         $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id");
 }
 //KZHAO  7-10-2007
 // Item with associated task cannot be exported
-if(@$hditem["item_task_id"]){
-	 $AppUI->setMsg( "Item with associated task cannot be exported to another task!" , UI_MSG_ERROR );
-   $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id");		 
+if (@$hditem["item_task_id"]) {
+     $AppUI->setMsg( "Item with associated task cannot be exported to another task!" , UI_MSG_ERROR );
+   $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id");
 }
 //KZHAO 10-24-2006
 // Check status
-if($ist[@$hditem["item_status"]]=="Closed"){
+if ($ist[@$hditem["item_status"]]=="Closed") {
          $AppUI->setMsg( "Closed helpdesk items cannot be exported to tasks!" , UI_MSG_ERROR );
          $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id");
 }
-		  
-if(!@$hditem["item_assigned_to"] && $HELPDESK_CONFIG['default_assigned_to_current_user']){
+
+if (!@$hditem["item_assigned_to"] && $HELPDESK_CONFIG['default_assigned_to_current_user']) {
   @$hditem["item_assigned_to"] = $AppUI->user_id;
   @$hditem["item_status"] = 1;
 }
 
-if(!@$hditem["item_company_id"] && $HELPDESK_CONFIG['default_company_current_company']){
+if (!@$hditem["item_company_id"] && $HELPDESK_CONFIG['default_company_current_company']) {
   @$hditem["item_company_id"] = $AppUI->user_company;
 }
 // Setup the title block
@@ -73,9 +74,9 @@ $newTask = new CTask();
 $ref_task ="This task was created from Helpdesk item #".$item_id.".\n";
 $ref_task.= "-----------------------\n";
 
-if(@$hditem["item_priority"]==0 || @$hditem["item_priority"]==2) {
+if (@$hditem["item_priority"]==0 || @$hditem["item_priority"]==2) {
     $taskPrio=0;
-} elseif(@$hditem["item_priority"]==1) {
+} elseif (@$hditem["item_priority"]==1) {
     $taskPrio=-1;
 } else {
     $taskPrio=1;

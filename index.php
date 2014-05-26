@@ -1,18 +1,18 @@
 <?php /* HELPDESK $Id$ */
 if (!defined('W2P_BASE_DIR')) {
-	die('You should not access this file directly');
+    die('You should not access this file directly');
 }
 
-include_once("helpdesk.functions.php");
+include_once 'helpdesk.functions.php';
 
 // check permissions for this module
 $canReadModule = canView( $m );
 if (!$canReadModule) {
-	$AppUI->redirect(ACCESS_DENIED);
+    $AppUI->redirect(ACCESS_DENIED);
 }
 
 if (isset( $_GET['tab'] )) {
-	$AppUI->setState( 'HelpDeskIdxTab', $_GET['tab'] );
+    $AppUI->setState( 'HelpDeskIdxTab', $_GET['tab'] );
 }
 $tab = $AppUI->getState( 'HelpDeskIdxTab' ) !== NULL ? $AppUI->getState( 'HelpDeskIdxTab' ) : 0;
 
@@ -34,8 +34,8 @@ $titleBlock->show();
 
 $item_perms = getItemPerms();
 
-$q = new w2p_Database_Query; 
-$q->addQuery('COUNT(item_id)'); 
+$q = new w2p_Database_Query;
+$q->addQuery('COUNT(item_id)');
 $q->addTable('helpdesk_items');
 $q->addWhere($item_perms);
 $numtotal = $q->loadResult ();
@@ -49,22 +49,22 @@ $numtotal = $q->loadResult ();
  */
 
 $item_perms = getItemPerms();
-$q = new w2p_Database_Query; 
-$q->addQuery('COUNT(DISTINCT(item_id))'); 
+$q = new w2p_Database_Query;
+$q->addQuery('COUNT(DISTINCT(item_id))');
 $q->addTable('helpdesk_items');
 $q->addWhere('item_assigned_to=' . $AppUI->user_id . ' AND (item_status != 2)');
 $nummine = $q->loadResult ();
 
-$q = new w2p_Database_Query; 
-$q->addQuery('COUNT(DISTINCT(item_id))'); 
+$q = new w2p_Database_Query;
+$q->addQuery('COUNT(DISTINCT(item_id))');
 $q->addTable('helpdesk_items');
 $q->addJoin('helpdesk_item_status','his','helpdesk_items.item_id = his.status_item_id');
 $q->addWhere('item_status = 1 AND status_code = 0 ');
 $q->addWhere($item_perms . ' AND (TO_DAYS(NOW()) - TO_DAYS(status_date) = 0)');
 $numopened = $q->loadResult ();
 
-$q = new w2p_Database_Query; 
-$q->addQuery('COUNT(DISTINCT(item_id))'); 
+$q = new w2p_Database_Query;
+$q->addQuery('COUNT(DISTINCT(item_id))');
 $q->addTable('helpdesk_items');
 $q->addJoin('helpdesk_item_status','his','helpdesk_items.item_id = his.status_item_id');
 $q->addWhere('item_status = 2 AND status_code = 11 ');
@@ -74,7 +74,7 @@ $numclosed = $q->loadResult();
 ?>
 <table cellspacing="0" cellpadding="2" border="0" width="100%">
 <tr>
-	<td width="80%" valign="top">
+    <td width="80%" valign="top">
   <?php
   // Tabbed information boxes
   $tabBox = new CTabBox( '?m=helpdesk', W2P_BASE_DIR . '/modules/helpdesk/', $tab );
@@ -85,6 +85,6 @@ $numclosed = $q->loadResult();
   $tabBox->add( 'vw_idx_watched', "Watched Tickets" );
   $tabBox->show();
   ?>
-	</td>
+    </td>
 </tr>
 </table>

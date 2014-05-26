@@ -2,7 +2,7 @@
 if (!defined('W2P_BASE_DIR')) {
   die('You should not access this file directly');
 }
-include_once("helpdesk.functions.php");
+include_once 'helpdesk.functions.php';
 $allowedCompanies = getAllowedCompanies();
 $allowedProjects = getAllowedProjects();
 $ipr = w2PgetSysVal( 'HelpDeskPriority' );
@@ -38,19 +38,19 @@ $tarr = array();
 $selectors = array();
 
 // check for search text
-if($HELPDESK_CONFIG['search_criteria_search']){
-  if(isset($_GET['search'])){
+if ($HELPDESK_CONFIG['search_criteria_search']) {
+  if (isset($_GET['search'])) {
     // Set the search text as system state--Kang
     $AppUI->setState( 'HelpDeskSearch', $_GET['search'] );
   }
 
   $search =$AppUI->getState( 'HelpDeskSearch' ) !== null ? $AppUI->getState( 'HelpDeskSearch' ) : '';
   //echo "<br>".$search."<br>";
-  if(strlen(trim($search))>0){
+  if (strlen(trim($search))>0) {
     $tarr[] = "(lower(hi.item_title) LIKE lower('%$search%')
                 OR lower(hi.item_summary) LIKE lower('%$search%'))";
   }
-  
+
   if (!$_REQUEST['project_id'] && !$_REQUEST['company_id']) {
     $selectors[] = "<td align=\"right\"><label for=\"search\">"
                . $AppUI->_('Search')
@@ -63,7 +63,7 @@ if($HELPDESK_CONFIG['search_criteria_search']){
 }
 
 // check for calltype filter
-if($HELPDESK_CONFIG['search_criteria_call_type']){
+if ($HELPDESK_CONFIG['search_criteria_call_type']) {
   if (isset( $_GET['item_calltype'] )) {
     $AppUI->setState( 'HelpDeskCallType', $_GET['item_calltype'] );
   }
@@ -73,7 +73,7 @@ if($HELPDESK_CONFIG['search_criteria_call_type']){
   if ($calltype >= 0) {
     $tarr[] = "hi.item_calltype=$calltype";
   }
-  
+
   if (!$_REQUEST['project_id'] && !$_REQUEST['company_id']) {
     $selectors[] = "<td align=\"right\" nowrap><label for=\"call_type\">"
                . $AppUI->_('Call Type')
@@ -87,7 +87,7 @@ if($HELPDESK_CONFIG['search_criteria_call_type']){
 }
 
 // check for status filter
-if($HELPDESK_CONFIG['search_criteria_status']){
+if ($HELPDESK_CONFIG['search_criteria_status']) {
   if (isset( $_GET['item_status'] )) {
     $AppUI->setState( 'HelpDeskStatus', $_GET['item_status'] );
   }
@@ -113,7 +113,7 @@ if($HELPDESK_CONFIG['search_criteria_status']){
 }
 
 // check for priority filter
-if($HELPDESK_CONFIG['search_criteria_priority']){
+if ($HELPDESK_CONFIG['search_criteria_priority']) {
   if (isset( $_GET['item_priority'] )) {
     $AppUI->setState( 'HelpDeskPriority', $_GET['item_priority'] );
   }
@@ -137,7 +137,7 @@ if($HELPDESK_CONFIG['search_criteria_priority']){
 }
 
 // check for severity filter
-if($HELPDESK_CONFIG['search_criteria_severity']){
+if ($HELPDESK_CONFIG['search_criteria_severity']) {
   if (isset( $_GET['item_severity'] )) {
     $AppUI->setState( 'HelpDeskSeverity', $_GET['item_severity'] );
   }
@@ -161,7 +161,7 @@ if($HELPDESK_CONFIG['search_criteria_severity']){
 }
 
 // check for source filter
-if($HELPDESK_CONFIG['search_criteria_call_source']){
+if ($HELPDESK_CONFIG['search_criteria_call_source']) {
   if (isset( $_GET['item_source'] )) {
     $AppUI->setState( 'HelpDeskSource', $_GET['item_source'] );
   }
@@ -176,7 +176,7 @@ if($HELPDESK_CONFIG['search_criteria_call_source']){
     $selectors[] = "<td align=\"right\" nowrap><label for=\"call_source\">"
                . $AppUI->_('Call Source')
                . ":</label></td><td>"
-               . arraySelect( arrayMerge( array( '-1'=>$AppUI->_('All') ), $ics ), 
+               . arraySelect( arrayMerge( array( '-1'=>$AppUI->_('All') ), $ics ),
                               'item_source',
                               'size="1" id="call_source" class="text" onchange="changeList()"',
                               $item_source, true)
@@ -185,7 +185,7 @@ if($HELPDESK_CONFIG['search_criteria_call_source']){
 }
 
 // check for os filter
-if($HELPDESK_CONFIG['search_criteria_service']){
+if ($HELPDESK_CONFIG['search_criteria_service']) {
   if (isset( $_GET['item_service'] )) {
     $AppUI->setState( 'HelpDeskService', $_GET['item_service'] );
   }
@@ -209,7 +209,7 @@ if($HELPDESK_CONFIG['search_criteria_service']){
 }
 
 // check for application filter
-if($HELPDESK_CONFIG['search_criteria_application']){
+if ($HELPDESK_CONFIG['search_criteria_application']) {
   if (isset( $_GET['item_application'] )) {
     $AppUI->setState( 'HelpDeskApplication', $_GET['item_application'] );
   }
@@ -232,11 +232,11 @@ if($HELPDESK_CONFIG['search_criteria_application']){
   }
 }
 // check for company filter
-if($HELPDESK_CONFIG['search_criteria_company']){
+if ($HELPDESK_CONFIG['search_criteria_company']) {
   if (isset( $_GET['company'] )) {
     $AppUI->setState( 'HelpDeskCompany', $_GET['company'] );
   }
-  
+
   if (empty($_REQUEST['company_id'])) {
     $company = $AppUI->getState( 'HelpDeskCompany' ) !== null ? $AppUI->getState( 'HelpDeskCompany' ) : -1;
   } else {
@@ -246,7 +246,7 @@ if($HELPDESK_CONFIG['search_criteria_company']){
   if ($company >= 0) {
     $tarr[] = "hi.item_company_id=$company";
   }
-  
+
   if (!$_REQUEST['project_id'] && !$_REQUEST['company_id']) {
     $selectors[] = "<td align=\"right\"><label for=\"company\">"
                . $AppUI->_('Company')
@@ -260,7 +260,7 @@ if($HELPDESK_CONFIG['search_criteria_company']){
 }
 
 // check for project filter
-if($HELPDESK_CONFIG['search_criteria_project']){
+if ($HELPDESK_CONFIG['search_criteria_project']) {
   if (isset( $_GET['project'] )) {
     $AppUI->setState( 'HelpDeskProject', $_GET['project'] );
   }
@@ -296,7 +296,7 @@ if($HELPDESK_CONFIG['search_criteria_project']){
 
 
 // check for assigned_to filter
-if($HELPDESK_CONFIG['search_criteria_assigned_to']){
+if ($HELPDESK_CONFIG['search_criteria_assigned_to']) {
   if (isset( $_GET['assigned_to'] )) {
     $AppUI->setState( 'HelpDeskAssignedTo', $_GET['assigned_to'] );
   }
@@ -308,7 +308,7 @@ if($HELPDESK_CONFIG['search_criteria_assigned_to']){
   }
 
   // retrieve assigned to user list
-  $q = new w2p_Database_Query; 
+  $q = new w2p_Database_Query;
   $q->addQuery('user_id, CONCAT(contact_first_name, \' \', contact_last_name)');
   $q->addTable('users');
   $q->addJoin('contacts','','contact_id = user_contact','INNER');
@@ -330,7 +330,7 @@ if($HELPDESK_CONFIG['search_criteria_assigned_to']){
 }
 
 // check for requestor filter
-if($HELPDESK_CONFIG['search_criteria_requestor']){
+if ($HELPDESK_CONFIG['search_criteria_requestor']) {
   if (isset( $_GET['requestor'] )) {
     $AppUI->setState( 'HelpDeskRequestor', $_GET['requestor'] );
   }
@@ -342,7 +342,7 @@ if($HELPDESK_CONFIG['search_criteria_requestor']){
   }
 
   // retrieve requestor list
-  $q = new w2p_Database_Query; 
+  $q = new w2p_Database_Query;
   $q->addQuery('distinct(item_requestor) as requestor, item_requestor');
   $q->addTable('helpdesk_items');
   $q->addWhere(getCompanyPerms('item_company_id', NULL, PERM_READ));
@@ -367,7 +367,7 @@ if (count( $tarr )) {
   $where .= ' AND ('.implode("\n AND ", $tarr).') ';
 }
 
-$q = new w2p_Database_Query; 
+$q = new w2p_Database_Query;
 $q->addQuery('hi.*,CONCAT(co.contact_first_name,\' \',co.contact_last_name) assigned_fullname,
              p.project_id,p.project_name,p.project_color_identifier');
 $q->addTable('helpdesk_items','hi');
@@ -420,7 +420,8 @@ $titleBlock->show();
 ?>
 
 <script language="javascript">
-function changeList() {
+function changeList()
+{
   document.filterFrm.submit();
 }
 </script>
@@ -434,12 +435,12 @@ function changeList() {
   <tr>
   <?php
     $count = 1;
-    foreach($selectors as $selector){
+    foreach ($selectors as $selector) {
       print $selector;
-      if($count%3==0){
+      if ($count%3==0) {
         print "</tr>\n<tr>";
       }
-      $count++;  
+      $count++;
     }
   implode("</tr>\n<tr>",$selectors)
   ?>
@@ -496,17 +497,16 @@ foreach ($rows as $row) {
             . w2PshowImage ('ct'.$row['item_calltype'].'.png', 15, 17, '','', $m )
             . '</td>';
 
-  
+
   // KZHAO: Display the creation date
   $date = new w2p_Utilities_Date( $row['item_created'] );
   //Check whether the creation date is available
-  if($row['item_created']==NULL){
+  if ($row['item_created']==NULL) {
     $s .= $CR . "<td nowrap><a title='Unknown'>N/A</a></td>";
-  }
-  else{
+  } else {
     $s .= $CR . "<td nowrap><a title='".$date->format( $format )."'>".get_time_ago($row['item_created'])."</a></td>";
   }
-  
+
   $s .= $CR . "<td nowrap align=\"center\">";
   if ($row['item_requestor_email']) {
     $s .= $CR . "<a href=\"mailto:".$row['item_requestor_email']."\">"
@@ -523,10 +523,10 @@ foreach ($rows as $row) {
             . $row['item_title']
             . '</a></td>';
 
-  $s .= $CR . '<td width="80%">' 
+  $s .= $CR . '<td width="80%">'
             . substr($row['item_summary'],0,max(strpos($row['item_summary']."\n","\n"),70))
             . ' </td>';
-  
+
     $s .= $CR . "<td nowrap align=\"center\">";
   if ($row['item_assigned_to']) {
         $user = new CUser();
@@ -544,36 +544,32 @@ foreach ($rows as $row) {
   $s .= $CR . "</td>";
   $s .= $CR . '<td align="center" nowrap>' . $AppUI->_($ist[@$row['item_status']]) . '</td>';
   $s .= $CR . '<td align="center" nowrap>' . $AppUI->_($ipr[@$row['item_priority']]) . '</td>';
-  
+
   // Display the date of updating
-  $dateu = new w2p_Utilities_Date( $row['item_updated'] );  
+  $dateu = new w2p_Utilities_Date( $row['item_updated'] );
   //Check which date is available
-  if($row['item_updated']!=NULL){
+  if ($row['item_updated']!=NULL) {
     $s .= $CR . "<td align='center' nowrap><a title='".@$dateu->format($format)."'>".get_time_ago($row['item_updated'])."</a></td>";
-  }
-  elseif($row['item_modified']!=NULL){
+  } elseif ($row['item_modified']!=NULL) {
     $dateu = new w2p_Utilities_Date( $row['item_modified'] );
-    $s .= $CR . "<td align='center' nowrap><a title='".@$dateu->format($format)."'>".get_time_ago($row['item_modified'])."</a></td>";    
-  }
-  else{
+    $s .= $CR . "<td align='center' nowrap><a title='".@$dateu->format($format)."'>".get_time_ago($row['item_modified'])."</a></td>";
+  } else {
     $s .= $CR . "<td align='center' nowrap><a title='Unknown'>N/A</a></td>";
   }
 
   // KZHAO  8-10-2006
   // Display deadline
-  if($ist[@$row['item_status']]=='Close'){
-  
-  }
-  elseif($row['item_deadline']!=NULL){
+  if ($ist[@$row['item_status']]=='Close') {
+
+  } elseif ($row['item_deadline']!=NULL) {
     $dl=new w2p_Utilities_Date ($row['item_deadline']);
     $s .= $CR . "<td align='center' nowrap><a title='".@$dl->format($format)."'>".get_due_time($row['item_deadline'],1)."</a></td>";
-  }
-  else{
+  } else {
     $s .= $CR . "<td align='center' nowrap><a title='Unknown'>N/A</a></td>";
   }
 
-  
-  if($row['project_id']){
+
+  if ($row['project_id']) {
     $s .= $CR . '<td align="center" style="background-color: #'
         . $row['project_color_identifier']
         . ';" nowrap><a href="./index.php?m=projects&a=view&project_id='
@@ -594,7 +590,7 @@ print "$s\n";
 $pages = 0;
 if ($total_results > $items_per_page) {
   $pages_per_side = $HELPDESK_CONFIG['pages_per_side'];
-  $pages = ceil($total_results / $items_per_page) - 1; 
+  $pages = ceil($total_results / $items_per_page) - 1;
 
   if ($page < $pages_per_side) {
     $start = 0;
@@ -620,7 +616,7 @@ if ($total_results > $items_per_page) {
     print "<a href=\"$link"
         . ($page - 1)
         . "\">&larr; "
-        . $AppUI->_('Previous') 
+        . $AppUI->_('Previous')
         . "</a>&nbsp;&nbsp;";
   }
 
@@ -659,19 +655,20 @@ echo '</td></tr>';
 </table>
 <?php
   print "<center><small>";
-     
+
   if ($pages > 0) {
     print ", "
         . ($pages + 1)
         . " "
         . $AppUI->_('Pages');
   }
-      
+
   print "</small></center>";
 
 // Returns a header link used to sort results
 // TODO Probably need a better up/down arrow
-function sort_header($field, $name) {
+function sort_header($field, $name)
+{
   global $orderby, $orderdesc;
 
   $arrow = "";
