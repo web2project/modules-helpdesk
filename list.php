@@ -604,7 +604,7 @@ if ($total_results > $items_per_page) {
     $end = $page + $pages_per_side;
   }
 
-  print "<tr><td colspan=\"9\" align=\"center\">";
+  print "<tr><td colspan=\"12\" align=\"center\">";
 
   $link = "?m=helpdesk&a=list&page=";
 
