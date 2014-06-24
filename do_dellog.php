@@ -20,7 +20,7 @@ if ($del) {
     }
 }
 
-$obj = new CHDTaskLog();
+$obj = new CTask_Log();
 if (!$obj->bind($_POST)) {
     $AppUI->setMsg($obj->getError(), UI_MSG_ERROR);
     $AppUI->redirect();

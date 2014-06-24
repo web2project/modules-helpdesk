@@ -520,32 +520,3 @@ class CHelpDesk extends w2p_Core_BaseObject
     return $isa[$audit_code] . " " . $comment;
   }
 }
-
-/**
-* Overloaded CTask Class
-*/
-class CHDTaskLog extends w2p_Core_BaseObject
-{
-    public $task_log_id = NULL;
-    public $task_log_task = NULL;
-    public $task_log_help_desk_id = NULL;
-    public $task_log_name = NULL;
-    public $task_log_description = NULL;
-    public $task_log_creator = NULL;
-    public $task_log_hours = NULL;
-    public $task_log_date = NULL;
-    public $task_log_costcode = NULL;
-
-    public function __construct()
-    {
-        parent::__construct('task_log', 'task_log_id');
-    }
-
-    // overload check method
-    public function check()
-    {
-        $this->task_log_hours = (float) $this->task_log_hours;
-
-        return NULL;
-    }
-}

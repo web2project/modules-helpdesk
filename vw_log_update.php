@@ -10,7 +10,7 @@ $AppUI->loadCalendarJS();
 $users = getAllowedUsers();
 
 $task_log_id = intval( w2PgetParam( $_GET, 'task_log_id', 0 ) );
-$log = new CHDTaskLog();
+$log = new CTask_Log();
 if ($task_log_id) {
     $log->load( $task_log_id );
 

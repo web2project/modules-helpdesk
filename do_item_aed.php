@@ -55,7 +55,7 @@ if ($do_task_log) { // called from HD task log
     }
 
     //then create/update the task log
-    $obj = new CHDTaskLog();
+    $obj = new CTask_Log();
 
     if (!$obj->bind( $_POST )) {
         $AppUI->setMsg( $obj->getError(), UI_MSG_ERROR );
@@ -204,7 +204,7 @@ if ($do_task_log) { // called from HD task log
         if ($new_item) {// new item creation
                 $status_log_msg = $hditem->log_status(0,$AppUI->_('Ticket').' '.$AppUI->_('Created'),'',1);
                 //Lets create a log for the item creation:
-                $obj = new CHDTaskLog();
+                $obj = new CHelpdesk_Log();
                 $new_item_log = array('task_log_id' => 0,'task_log_help_desk_id' => $hditem->item_id, 'task_log_creator' => $AppUI->user_id, 'task_log_name' => 'Item Created: '.$_POST['item_title'], 'task_log_date' => $hditem->item_created, 'task_log_description' => $_POST['item_title'], 'task_log_hours' => $_POST['task_log_hours'], 'task_log_costcode' => $_POST['task_log_costcode']);
                 if (!$obj->bind( $new_item_log )) {
                     $AppUI->setMsg( $obj->getError(), UI_MSG_ERROR );
