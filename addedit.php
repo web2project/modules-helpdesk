@@ -17,6 +17,15 @@ foreach ($allowedProjects as $proj) {
 }
 $tasks = getAllowedTasksForJavascript($proj_ids,1);
 
+$ict = w2PgetSysVal( 'HelpDeskCallType' );
+$ics = w2PgetSysVal( 'HelpDeskSource' );
+$ios = w2PgetSysVal( 'HelpDeskService' );
+$iap = w2PgetSysVal( 'HelpDeskApplic' );
+$ipr = w2PgetSysVal( 'HelpDeskPriority' );
+$isv = w2PgetSysVal( 'HelpDeskSeverity' );
+$ist = w2PgetSysVal( 'HelpDeskStatus' );
+$isa = w2PgetSysVal( 'HelpDeskAuditTrail' );
+
 $helpdesk = new CHelpDesk();
 $helpdesk->load($item_id);
 $q = new w2p_Database_Query;

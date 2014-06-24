@@ -15,16 +15,6 @@ define("STATUSTASK_LOG", 3);
 define("TASK_LOG", 4);
 define("NEW_WATCHER_LOG", 5);
 
-// Pull in some standard arrays
-$ict = w2PgetSysVal( 'HelpDeskCallType' );
-$ics = w2PgetSysVal( 'HelpDeskSource' );
-$ios = w2PgetSysVal( 'HelpDeskService' );
-$iap = w2PgetSysVal( 'HelpDeskApplic' );
-$ipr = w2PgetSysVal( 'HelpDeskPriority' );
-$isv = w2PgetSysVal( 'HelpDeskSeverity' );
-$ist = w2PgetSysVal( 'HelpDeskStatus' );
-$isa = w2PgetSysVal( 'HelpDeskAuditTrail' );
-
 $field_event_map = array(
 //0=>Created
   1=>"item_title",            //Title

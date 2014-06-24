@@ -26,6 +26,15 @@ $page = $AppUI->getState('HelpDeskLogPage') ? $AppUI->getState('HelpDeskLogPage'
 // Get tab state
 $tab = $AppUI->processIntState('HelpLogVwTab', $_GET, 'tab', 0);
 
+$ict = w2PgetSysVal( 'HelpDeskCallType' );
+$ics = w2PgetSysVal( 'HelpDeskSource' );
+$ios = w2PgetSysVal( 'HelpDeskService' );
+$iap = w2PgetSysVal( 'HelpDeskApplic' );
+$ipr = w2PgetSysVal( 'HelpDeskPriority' );
+$isv = w2PgetSysVal( 'HelpDeskSeverity' );
+$ist = w2PgetSysVal( 'HelpDeskStatus' );
+$isa = w2PgetSysVal( 'HelpDeskAuditTrail' );
+
 $q = new w2p_Database_Query;
 $q->addQuery('hi.*,CONCAT(co.contact_first_name,\' \',co.contact_last_name) assigned_fullname,
              p.project_id,p.project_name,p.project_color_identifier, c.company_name');
