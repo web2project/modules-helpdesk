@@ -155,14 +155,14 @@ if (function_exists('styleRenderBoxTop')) {
 if ($do_report) {
 
 	if (function_exists('styleRenderBoxBottom')) {
-		echo styleRenderBoxBottom();
+		echo $AppUI->getTheme()->styleRenderBoxBottom();
 	}
 	echo '<br />';
 	if (function_exists('styleRenderBoxTop')) {
 		echo styleRenderBoxTop();
 	}
 
-  $q = new w2p_Database_Query; 
+  $q = new w2p_Database_Query;
   $q->addTable('task_log','t');
   $q->addQuery('t.*, item_id, CONCAT_WS(\' \',contact_first_name,contact_last_name) AS creator, billingcode_value, ROUND((billingcode_value * t.task_log_hours), 2) AS amount');
   $q->addJoin('helpdesk_items','ts','ts.item_id = task_log_help_desk_id');
@@ -173,10 +173,10 @@ if ($do_report) {
   $q->addJoin('billingcode','','billingcode_id = task_log_costcode');
   $q->addWhere('task_log_task = 0 AND task_log_help_desk_id > 0');
 
-	if ($project_id) 
+	if ($project_id)
 		$q->addWhere('project_id = ' . (int)$project_id);
 
-	if ($company_id) 
+	if ($company_id)
 		$q->addWhere('c.company_id = ' . (int)$company_id);
 
 	if (!$log_all) {
@@ -283,7 +283,7 @@ if ($do_report) {
 		<td align="right" colspan="6"><?php echo $AppUI->_('Report Totals');?>:</td>
 		<td align="right"><?php printf( "%.2f", $hours );?></td>
 		<td>&nbsp;</td>
-		<td align="right"><?php printf( "%.2f", $tamount );?></td>		
+		<td align="right"><?php printf( "%.2f", $tamount );?></td>
 	</tr>
 	</table>
 <?php
@@ -346,7 +346,7 @@ if ($do_report) {
 			$pdf->ezText($pname, 10);
 		}
 		$pdf->ezText($uname, 10);
-			
+
 		if ($log_all) {
 			$pdf->ezText( "All Helpdesk task log entries", 9 );
 		} else {
