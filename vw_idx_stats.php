@@ -7,6 +7,10 @@ global $m, $ict, $ist, $AppUI;
 
 $stats = array();
 
+// 62B ::  Populating arrays
+$ict = w2PgetSysVal( 'HelpDeskCallType' );
+$ist = w2PgetSysVal( 'HelpDeskStatus' );
+
 $item_perms = getItemPerms();
 
 foreach ($ict as $k => $v) {

@@ -32,13 +32,14 @@ function vw_idx_handler($type)
     case 2: // Mine open
         $date_field_title = $AppUI->_('Opened On');
         $date_field_name = "item_created";
-                $where .= "item_assigned_to={$AppUI->user_id} AND item_status !=2 ";
+        $where .= "item_assigned_to={$AppUI->user_id} AND item_status !=2 ";
         break;
-        case 3: // Any state by project
-                $date_field_title = $AppUI->_('Opened On');
-                $date_field_name = "item_created";
-                $where .= "item_project_id = $project_id";
-                break;
+    case 3: // Any state by project
+        $date_field_title = $AppUI->_('Opened On');
+        $date_field_name = "item_created";
+        $where .= "item_project_id = $project_id";
+        break;
+
     default:
       print "Shouldn't be here (for now)";
       exit(1);

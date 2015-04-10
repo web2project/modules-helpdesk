@@ -30,7 +30,7 @@ $obj->setAllowedSQL($AppUI->user_id, $q);
 
 $project_list=array("0"=> $AppUI->_("All", UI_OUTPUT_RAW) );
 $ptrc = $q->exec();
-$nums=db_num_rows($ptrc);
+$nums = db_num_rows($ptrc);
 echo db_error();
 for ($x=0; $x < $nums; $x++) {
         $row = db_fetch_assoc( $ptrc );
