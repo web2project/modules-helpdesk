@@ -6,7 +6,6 @@ if (!defined('W2P_BASE_DIR')) {
 //KZHAO 10-24-2006
 // Use mutlipart header and send emails in two formats
 include_once 'helpdesk.functions.php';
-include_once './modules/helpdesk/config.php';
 
 // Define log types
 define("NEW_ITEM_LOG", 1);
@@ -333,7 +332,6 @@ class CHelpDesk extends w2p_Core_BaseObject
         $search['table_key'] = 'h.item_id';
         $search['table_link'] = 'index.php?m=helpdesk&a=view&item_id=';
         $search['table_title'] = 'Helpdesk';
-        $search['table_orderby'] = 'item_title';
         $search['table_orderby'] = 'item_title';
         $search['search_fields'] = array('item_title', 'item_summary',
             'item_application', 'item_requestor', 'item_requestor_email',
