@@ -3,6 +3,8 @@ if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
 
+include_once 'config.php';
+
 function getAllowedUsers($companyid=0,$activeOnly=0)
 {
   global $HELPDESK_CONFIG, $AppUI, $m;

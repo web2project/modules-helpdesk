@@ -6,7 +6,6 @@ if (!defined('W2P_BASE_DIR')) {
 //KZHAO 10-24-2006
 // Use mutlipart header and send emails in two formats
 include_once 'helpdesk.functions.php';
-include_once './modules/helpdesk/config.php';
 
 // Define log types
 define("NEW_ITEM_LOG", 1);

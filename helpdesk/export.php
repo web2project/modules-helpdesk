@@ -2,6 +2,7 @@
 if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
+
 include_once 'helpdesk.functions.php';
 
 //KZHAO  10-24-2006
