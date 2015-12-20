@@ -158,7 +158,7 @@ if (!$hditem) {
 
       <tr>
         <td align="right" nowrap="nowrap"><?php echo $AppUI->_('Title')?>:</td>
-        <td class="hilite" width="100%"><?php echo $hditem["item_title"]?></td>
+        <td class="hilite" width="100%"><?php echo $HELPDESK_CONFIG['new_hd_item_title_prefix'] . ' ' . $hditem["item_title"]?></td>
       </tr>
 
       <tr>

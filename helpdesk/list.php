@@ -2,7 +2,9 @@
 if (!defined('W2P_BASE_DIR')) {
   die('You should not access this file directly');
 }
+
 include_once 'helpdesk.functions.php';
+
 $allowedCompanies = getAllowedCompanies();
 $allowedProjects = getAllowedProjects();
 $ipr = w2PgetSysVal( 'HelpDeskPriority' );
@@ -517,10 +519,8 @@ foreach ($rows as $row) {
   }
   $s .= $CR . "</td>";
 
-  $s .= $CR . '<td width="20%"><a href="?m=helpdesk&a=view&item_id='
-            . $row['item_id']
-            . '">'
-            . $row['item_title']
+  $s .= $CR . '<td width="20%"><a href="?m=helpdesk&a=view&item_id=' . $row['item_id'] . '">'
+            . $HELPDESK_CONFIG['new_hd_item_title_prefix'] . ' ' . $row['item_title']
             . '</a></td>';
 
   $s .= $CR . '<td width="80%">'

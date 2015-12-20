@@ -121,7 +121,7 @@ function vw_idx_handler($type)
       }
       ?>
       </td>
-      <td width="20%"><a href="?m=helpdesk&a=view&item_id=<?php echo $row['item_id']?>"><?php echo $row['item_title']?></a></td>
+      <td width="20%"><a href="?m=helpdesk&a=view&item_id=<?php echo $row['item_id']?>"><?php echo $HELPDESK_CONFIG['new_hd_item_title_prefix'] . ' ' .$row['item_title']?></a></td>
       <td width="80%"><?php echo substr($row['item_summary'],0,max(strpos($row['item_summary']."\n","\n"),80)) . '</td>'; ?></td>
       <td align="center" nowrap="nowrap">
       <?php

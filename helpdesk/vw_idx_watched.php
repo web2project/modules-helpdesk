@@ -74,7 +74,7 @@ foreach ($rows as $row) {
     $s .= $CR . '<td width="20%"><a href="?m=helpdesk&a=view&item_id='
             . $row['item_id']
             . '">'
-                . $row['item_title']
+                . $HELPDESK_CONFIG['new_hd_item_title_prefix'] . ' ' .$row['item_title']
             . '</a></td>';
   $s .= $CR . '<td width="80%">'
             . substr($row['item_summary'],0,max(strpos($row['item_summary']."\n","\n"),100))
