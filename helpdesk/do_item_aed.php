@@ -47,10 +47,10 @@ if ($do_task_log) { // called from HD task log
         $hditem->item_assigned_to = $new_assignee;
         $update_item = true;
     }
-            $AppUI->setMsg( $msg, UI_MSG_ERROR );
-            $AppUI->redirect();
     if ($update_item) {
         if (!$hditem->store()) {
+            $AppUI->setMsg( $hditem->getError(), UI_MSG_ERROR );
+            $AppUI->redirect('m=helpdesk&a=view&item_id=' . $hditem->item_id);
         }
     }
 
@@ -59,7 +59,7 @@ if ($do_task_log) { // called from HD task log
 
     if (!$obj->bind( $_POST )) {
         $AppUI->setMsg( $obj->getError(), UI_MSG_ERROR );
-        $AppUI->redirect();
+        $AppUI->redirect('m=helpdesk&a=view&item_id=' . $hditem->item_id);
     }
 
     if ($obj->task_log_date) {
@@ -72,7 +72,7 @@ if ($do_task_log) { // called from HD task log
     $obj->task_log_costcode = $obj->task_log_costcode;
     if (!$obj->store()) {
         $AppUI->setMsg( $msg, UI_MSG_ERROR );
-        $AppUI->redirect();
+        $AppUI->redirect('m=helpdesk&a=view&item_id=' . $hditem->item_id);
     } else {
         $body = $AppUI->_('Summary') . " : " . $obj->task_log_name . "\n";
         $body .= $AppUI->_('Description') . " : \n" . $obj->task_log_description . "\n";
@@ -92,7 +92,7 @@ if ($do_task_log) { // called from HD task log
     $hditem = new CHelpDesk();
     if ( !$hditem->bind( $_POST )) {
         $AppUI->setMsg( $hditem->error, UI_MSG_ERROR );
-        $AppUI->redirect();
+        $AppUI->redirect('m=helpdesk&a=view&item_id=' . $hditem->item_id);
     }
 
     $AppUI->setMsg( 'Help Desk Item', UI_MSG_OK );
