@@ -31,24 +31,24 @@ if ($do_task_log) { // called from HD task log
 
     if ($new_status!=$hditem->item_status) {
         $status_msg = $hditem->log_status(11,$AppUI->_($ist[$hditem->item_status]),$AppUI->_($ist[$new_status]));
-    $log_status_msg .= $status_msg . "\n";
+        $log_status_msg .= $status_msg . "\n";
         $hditem->item_status = $new_status;
-    $update_item=1;
+        $update_item=1;
     }
     if ($new_calltype!=$hditem->item_calltype) {
         $status_msg = $hditem->log_status(9,$AppUI->_($ict[$hditem->item_calltype]),$AppUI->_($ict[$new_calltype]));
-      $log_status_msg .= $status_msg . "\n";
+        $log_status_msg .= $status_msg . "\n";
         $hditem->item_calltype = $new_calltype;
-    $update_item=1;
-  }
+        $update_item=1;
+    }
     if ($new_assignee!=$hditem->item_assigned_to) {
         $status_msg = $hditem->log_status(5,$AppUI->_($users[$hditem->item_assigned_to]),$AppUI->_($users[$new_assignee]));
-      $log_status_msg .= $status_msg . "\n";
+        $log_status_msg .= $status_msg . "\n";
         $hditem->item_assigned_to = $new_assignee;
-    $update_item=1;
-  }
-  if ($update_item==1) {
-    if (($msg = $hditem->store()) !== true) {
+        $update_item=1;
+    }
+    if ($update_item==1) {
+        if (($msg = $hditem->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
             $AppUI->redirect();
         }
@@ -63,29 +63,29 @@ if ($do_task_log) { // called from HD task log
     }
 
     if ($obj->task_log_date) {
-      $date = new w2p_Utilities_Date($obj->task_log_date . date('Hi'));
+        $date = new w2p_Utilities_Date($obj->task_log_date . date('Hi'));
         $obj->task_log_date = $date->format( FMT_DATETIME_MYSQL );
     }
 
     $AppUI->setMsg('Task Log');
 
-  $obj->task_log_costcode = $obj->task_log_costcode;
-  if ($msg = $obj->store() !== true) {
-    $AppUI->setMsg( $msg, UI_MSG_ERROR );
-    $AppUI->redirect();
-  } else {
-      $body = $AppUI->_('Summary') . " : " . $obj->task_log_name . "\n";
-        $body .= $AppUI->_('Description') . " : \n" . $obj->task_log_description . "\n";
-    if ($log_status_msg) {
-      $body .= "\n" . $AppUI->_('Updates') . " : \n" . $log_status_msg;
-      $hditem->notifymsg(STATUSTASK_LOG, $body);
+    $obj->task_log_costcode = $obj->task_log_costcode;
+    if ($msg = $obj->store() !== true) {
+        $AppUI->setMsg( $msg, UI_MSG_ERROR );
+        $AppUI->redirect();
     } else {
-      $hditem->notifymsg(TASK_LOG, $body);
+        $body = $AppUI->_('Summary') . " : " . $obj->task_log_name . "\n";
+        $body .= $AppUI->_('Description') . " : \n" . $obj->task_log_description . "\n";
+        if ($log_status_msg) {
+            $body .= "\n" . $AppUI->_('Updates') . " : \n" . $log_status_msg;
+            $hditem->notifymsg(STATUSTASK_LOG, $body);
+        } else {
+            $hditem->notifymsg(TASK_LOG, $body);
+        }
+        if ($AppUI->msgNo != UI_MSG_ERROR) {
+            $AppUI->setMsg( @$_POST['task_log_id'] ? 'updated' : 'added', UI_MSG_OK, true );
+        }
     }
-    if ($AppUI->msgNo != UI_MSG_ERROR) {
-      $AppUI->setMsg( @$_POST['task_log_id'] ? 'updated' : 'added', UI_MSG_OK, true );
-    }
-  }
     $AppUI->redirect("m=helpdesk&a=view&item_id=$item_id&tab=0");
 } else {  // for creating or editting Helpdesk items
 
@@ -98,7 +98,7 @@ if ($do_task_log) { // called from HD task log
     $AppUI->setMsg( 'Help Desk Item', UI_MSG_OK );
 
     if ($del) {// to delete an item
-    $hditem->load( $item_id );
+        $hditem->load( $item_id );
         $hditem->item_updated = $udate;
         if (($msg = $hditem->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
@@ -119,89 +119,90 @@ if ($do_task_log) { // called from HD task log
             $hditem->item_updated = $udate;
             $hditem->item_notify = $notify_all;
         } else {
-      $hditem->item_notify = $notify_all;
+            $hditem->item_notify = $notify_all;
             $hditem->item_updated = $udate;
-        $status_log_msg = $hditem->log_status_changes();
+            $status_log_msg = $hditem->log_status_changes();
         }
 
-    //KZHAO  8-10-2006
-    // get the deadline for the HD item
-    $dl = ((int) $deadline) ? new w2p_Utilities_Date($deadline) : new w2p_Utilities_Date();
-    $dl->setTime(23,59,59);
-    $hditem->item_deadline = $dl->format( FMT_DATETIME_MYSQL );
+        //KZHAO  8-10-2006
+        // get the deadline for the HD item
+        $dl = ((int) $deadline) ? new w2p_Utilities_Date($deadline) : new w2p_Utilities_Date();
+        $dl->setTime(23,59,59);
+        $hditem->item_deadline = $dl->format( FMT_DATETIME_MYSQL );
 
-    // Kang: 3-15-2007
-    // file uploading
-    if (isset( $_FILES['hdfile']) && isset($_FILES['hdfile']['name']) && $_FILES['hdfile']['name']!='') {
-        $file_obj = new CFile();
-        $file_info=array();
-        $acl =& $AppUI->acl();
-        if ( ! $acl->checkModule('files', 'add')) {
-            $AppUI->setMsg($AppUI->_( "noDeletePermission" ));
-            $AppUI->redirect(ACCESS_DENIED);
-        }
-        $file_obj->_message = 'added';
-        $file_info['file_version'] = 1.0;
-        $file_info['file_category'] = 0;
-        $file_info['file_parent'] = 0;
-        $file_info['file_project'] = $hditem->item_project_id;
-        if (!$new_item) {
-            $file_info['file_description'] = $AppUI->_('This file is associated with helpdesk item') . ' ' .$hditem->item_id . ' ('. $hditem->item_title . ')';
-            $file_info['file_helpdesk_item'] = $hditem->item_id;
-        }
-        $file_info['file_owner']=$AppUI->user_id;
-
-        if (!$file_obj->bind( $file_info )) {
-            $AppUI->setMsg( $file_obj->getError(), UI_MSG_ERROR );
-            $AppUI->redirect();
-        }
-
-        $upload=null;
-        $upload = $_FILES['hdfile'];
-        if ($upload['size'] < 1) {
-            if (!$file_id) {
-                $AppUI->setMsg( 'Upload file size is zero. Process aborted.', UI_MSG_ERROR );
-                $AppUI->redirect('m=helpdesk&a=view&item_id='.$hditem->item_id);
+        // Kang: 3-15-2007
+        // file uploading
+        if (isset( $_FILES['hdfile']) && isset($_FILES['hdfile']['name']) && $_FILES['hdfile']['name']!='') {
+            $file_obj = new CFile();
+            $file_info=array();
+            $acl =& $AppUI->acl();
+            if ( ! $acl->checkModule('files', 'add')) {
+                $AppUI->setMsg($AppUI->_( "noDeletePermission" ));
+                $AppUI->redirect(ACCESS_DENIED);
             }
-        } else {
-            // store file with a unique name
-            $file_obj->file_name = $upload['name'];
-            $file_obj->file_type = $upload['type'];
-            $file_obj->file_size = $upload['size'];
-            $file_obj->file_date = str_replace("'", '', $db->DBTimeStamp(time()));
-            $file_obj->file_real_filename = uniqid( rand() );
-            $res = $file_obj->moveTemp( $upload );
-            if (!$res) {
-                $AppUI->setMsg( 'File could not be written', UI_MSG_ERROR );
+            $file_obj->_message = 'added';
+            $file_info['file_version'] = 1.0;
+            $file_info['file_category'] = 0;
+            $file_info['file_parent'] = 0;
+            $file_info['file_project'] = $hditem->item_project_id;
+            if (!$new_item) {
+                $file_info['file_description'] = $AppUI->_('This file is associated with helpdesk item') . ' ' .$hditem->item_id . ' ('. $hditem->item_title . ')';
+                $file_info['file_helpdesk_item'] = $hditem->item_id;
+            }
+            $file_info['file_owner']=$AppUI->user_id;
+
+            if (!$file_obj->bind( $file_info )) {
+                $AppUI->setMsg( $file_obj->getError(), UI_MSG_ERROR );
                 $AppUI->redirect();
             }
-        }
 
-        if (! $file_obj->file_version_id) {
-            $q  = new w2p_Database_Query;
-            $q->addTable('files');
-            $q->addQuery('file_version_id');
-            $q->addOrder('file_version_id DESC');
-            $q->setLimit(1);
-            $sql = $q->prepare();
-            $latest_file_version = $q->loadResult($sql);
-            $file_obj->file_version_id = $latest_file_version + 1;
-        }
+            $upload=null;
+            $upload = $_FILES['hdfile'];
+            if ($upload['size'] < 1) {
+                if (!$file_id) {
+                    $AppUI->setMsg( 'Upload file size is zero. Process aborted.', UI_MSG_ERROR );
+                    $AppUI->redirect('m=helpdesk&a=view&item_id='.$hditem->item_id);
+                }
+            } else {
+                // store file with a unique name
+                $file_obj->file_name = $upload['name'];
+                $file_obj->file_type = $upload['type'];
+                $file_obj->file_size = $upload['size'];
+                $file_obj->file_date = str_replace("'", '', $db->DBTimeStamp(time()));
+                $file_obj->file_real_filename = uniqid( rand() );
+                $res = $file_obj->moveTemp( $upload );
+                if (!$res) {
+                    $AppUI->setMsg( 'File could not be written', UI_MSG_ERROR );
+                    $AppUI->redirect();
+                }
+            }
 
-        if (($msg = $file_obj->store()) !== true) {
-            $AppUI->setMsg( $msg, UI_MSG_ERROR );
-        }
-        // add the link of the file to the description of the helpdesk item
-        $hd_file_info="\n------------------\n" . $AppUI->_('Associated File Name:'). ' '.$file_obj->file_name;
-        $hd_file_info.="  Link: ".$w2Pconfig['base_url']."/fileviewer.php?file_id=".$file_obj->file_id;
-        $hd_file_info.="\n------------------\n";
-        $hditem->item_summary=$hditem->item_summary . $hd_file_info;
-    }// end of file uploading
+            if (! $file_obj->file_version_id) {
+                $q  = new w2p_Database_Query;
+                $q->addTable('files');
+                $q->addQuery('file_version_id');
+                $q->addOrder('file_version_id DESC');
+                $q->setLimit(1);
+                $sql = $q->prepare();
+                $latest_file_version = $q->loadResult($sql);
+                $file_obj->file_version_id = $latest_file_version + 1;
+            }
 
-    if (($msg = $hditem->store()) !== true) {
+            if (($msg = $file_obj->store()) !== true) {
+                $AppUI->setMsg( $msg, UI_MSG_ERROR );
+            }
+            // add the link of the file to the description of the helpdesk item
+            $hd_file_info="\n------------------\n" . $AppUI->_('Associated File Name:'). ' '.$file_obj->file_name;
+            $hd_file_info.="  Link: ".$w2Pconfig['base_url']."/fileviewer.php?file_id=".$file_obj->file_id;
+            $hd_file_info.="\n------------------\n";
+            $hditem->item_summary=$hditem->item_summary . $hd_file_info;
+        }// end of file uploading
+
+        if (($msg = $hditem->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
         } else {
-        if ($new_item) {// new item creation
+            if ($new_item) {
+                // new item creation
                 $status_log_msg = $hditem->log_status(0,$AppUI->_('Ticket').' '.$AppUI->_('Created'),'',1);
                 //Lets create a log for the item creation:
                 $obj = new CHelpDesk();
@@ -211,25 +212,25 @@ if ($do_task_log) { // called from HD task log
                     $AppUI->redirect();
                 }
                 if (($msg = $obj->store()) !== true) {
-                $AppUI->setMsg( $msg, UI_MSG_ERROR );
-                $AppUI->redirect();
+                    $AppUI->setMsg( $msg, UI_MSG_ERROR );
+                    $AppUI->redirect();
                 }
-        // Generate the description for attached file
-        if ($file_obj) {
-          $file_obj->file_description = $AppUI->_('This file is associated with helpdesk item') . ' ' .$hditem->item_id . ' ('. $hditem->item_title . ')';
-          $file_obj->file_helpdesk_item=$hditem->item_id;
-          if (($msg = $file_obj->store()) !== true) {
-            $AppUI->setMsg( $msg, UI_MSG_ERROR );
-          }
-        }
-        }
-         // KZHAO  8-7-2006
-        doWatchers(w2PgetParam( $_POST, 'watchers', 0 ), $hditem, $notify_all);
-      // KZHAO  8-7-2006
-      if ($AppUI->msgNo != UI_MSG_ERROR) {
-        $AppUI->setMsg( $new_item ? ($AppUI->_('Help Desk Item') .' '. $AppUI->_('added')) : ($AppUI->_('Help Desk Item') . ' ' . $AppUI->_('updated')) , UI_MSG_OK, false );
-      }
-      $AppUI->redirect('m=helpdesk&a=view&item_id='.$hditem->item_id);
+                // Generate the description for attached file
+                if ($file_obj) {
+                    $file_obj->file_description = $AppUI->_('This file is associated with helpdesk item') . ' ' .$hditem->item_id . ' ('. $hditem->item_title . ')';
+                    $file_obj->file_helpdesk_item=$hditem->item_id;
+                    if (($msg = $file_obj->store()) !== true) {
+                        $AppUI->setMsg( $msg, UI_MSG_ERROR );
+                    }
+                }
+            }
+            // KZHAO  8-7-2006
+            doWatchers(w2PgetParam( $_POST, 'watchers', 0 ), $hditem, $notify_all);
+            // KZHAO  8-7-2006
+            if ($AppUI->msgNo != UI_MSG_ERROR) {
+                $AppUI->setMsg( $new_item ? ($AppUI->_('Help Desk Item') .' '. $AppUI->_('added')) : ($AppUI->_('Help Desk Item') . ' ' . $AppUI->_('updated')) , UI_MSG_OK, false );
+            }
+            $AppUI->redirect('m=helpdesk&a=view&item_id='.$hditem->item_id);
         }
     }
 }

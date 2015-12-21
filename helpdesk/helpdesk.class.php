@@ -475,37 +475,36 @@ class CHelpDesk extends w2p_Core_BaseObject
     }
   }
 
-  public function log_status($audit_code, $commentfrom="", $commentto="", $notify=0)
-  {
-    global $isa ;
-    if ($commentto) {
-      $sep = ' ';
-      $sepend = ' ';
-      if ($audit_code==16) {
-        $sep = "------ ";
-          $sepend = " \n";
-      }
-      $comment = $sep . $this->_AppUI->_('changed from'). $sepend . " \"" . addslashes($commentfrom) . "\" ";
-      $comment .= $sep . $this->_AppUI->_('to') . $sepend . " \"" . addslashes($commentto) . "\"";
-    } else {
-        $comment=$commentfrom;
-    }
-    $sql = "
-      INSERT INTO helpdesk_item_status
-      (status_item_id,status_code,status_date,status_modified_by,status_comment)
-      VALUES('{$this->item_id}','{$audit_code}',NOW(),'{$this->_AppUI->user_id}','$comment')
-    ";
-    db_exec($sql);
+    public function log_status($audit_code, $commentfrom="", $commentto="", $notify=0)
+    {
+        global $isa ;
+        if ($commentto) {
+            $sep = ' ';
+            $sepend = ' ';
+            if ($audit_code==16) {
+                $sep = "------ ";
+                $sepend = " \n";
+            }
+            $comment = $sep . $this->_AppUI->_('changed from'). $sepend . " \"" . addslashes($commentfrom) . "\" ";
+            $comment .= $sep . $this->_AppUI->_('to') . $sepend . " \"" . addslashes($commentto) . "\"";
+        } else {
+            $comment=$commentfrom;
+        }
+        $sql = "
+            INSERT INTO helpdesk_item_status
+            (status_item_id,status_code,status_date,status_modified_by,status_comment)
+            VALUES('{$this->item_id}','{$audit_code}',NOW(),'{$this->_AppUI->user_id}','$comment')";
+        db_exec($sql);
 
-    if (db_error()) {
-      return false;
-    }
-    $log_id = mysql_insert_id();
+        if (db_error()) {
+            return false;
+        }
+        $log_id = mysql_insert_id();
 
-    if (($this->item_notify) && $notify==1) {
-      $this->notifymsg(($audit_code==0) ? NEW_ITEM_LOG : STATUS_LOG , $comment);
-    }
+        if (($this->item_notify) && $notify==1) {
+            $this->notifymsg(($audit_code==0) ? NEW_ITEM_LOG : STATUS_LOG , $comment);
+        }
 
-    return $isa[$audit_code] . " " . $comment;
-  }
+        return $isa[$audit_code] . " " . $comment;
+    }
 }
