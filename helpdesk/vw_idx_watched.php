@@ -106,26 +106,3 @@ foreach ($rows as $row) {
 print "$s\n";
 ?>
 </table>
-
-<?php
-// Returns a header link used to sort results
-// TODO Probably need a better up/down arrow
-function sort_header($field, $name)
-{
-  global $orderby, $orderdesc;
-
-  $arrow = "";
-
-  $link = "<a class=\"hdr\" href=\"?m=helpdesk&a=list&orderby=$field&orderdesc=";
-
-  if ($orderby == $field) {
-    $link .= $orderdesc ? "0" : "1";
-    $arrow .= $orderdesc ? " &uarr;" : " &darr;";
-  } else {
-    $link .= "0";
-  }
-
-  $link .= "\">$name</a>$arrow";
-
-  return $link;
-}
