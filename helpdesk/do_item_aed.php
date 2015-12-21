@@ -13,14 +13,14 @@ $deadline=w2PgetParam( $_POST, 'item_deadline', 0 );
 
 $new_item = !($item_id>0);
 $updated_date = new w2p_Utilities_Date();
-$udate = $updated_date->format( FMT_DATETIME_MYSQL );
+$update = $updated_date->format( FMT_DATETIME_MYSQL );
 $notify_all = isset($_POST['item_notify']) ? w2PgetParam( $_POST,'item_notify',0) : $HELPDESK_CONFIG['default_notify_by_email'];
 
 if ($do_task_log) { // called from HD task log
     //first update the status on to current helpdesk item.
     $hditem = new CHelpDesk();
     $hditem->load( $item_id );
-    $hditem->item_updated = $udate;
+    $hditem->item_updated = $update;
 
     $new_status = w2PgetParam( $_POST, 'item_status', 0 );
     $new_calltype = w2PgetParam( $_POST, 'item_calltype', 0 );
