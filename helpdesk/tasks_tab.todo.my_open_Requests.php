@@ -3,7 +3,7 @@ if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
 
-require_once($w2Pconfig['root_dir'] . "helpdesk.functions.php");
+include_once 'helpdesk.functions.php';
 
 // Show my items
 vw_idx_handler(2);
