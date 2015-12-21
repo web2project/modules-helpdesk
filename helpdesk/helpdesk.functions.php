@@ -407,3 +407,50 @@ function linkLinks($data)
 
     return $data;
 }
+
+// dealing with the helpdesk_item_watchers table in DB and send emails
+// send emails to acknowledge that they are added to the watcher list
+function doWatchers($list, $hditem, $notify_all) {//KZHAO 8-7-2006
+    global $AppUI;
+
+    # Create the watcher list
+    $watcherlist = split(',', $list);
+
+    $q = new w2p_Database_Query;
+    $q->addQuery('user_id');
+    $q->addTable('helpdesk_item_watchers');
+    $q->addWhere('item_id=' . $hditem->item_id);
+    $current_users = $q->loadHashList();
+    $current_users = array_keys($current_users);
+
+    # Delete the existing watchers as the list might have changed
+    $sql = "DELETE FROM helpdesk_item_watchers WHERE item_id=" . $hditem->item_id;
+    db_exec($sql);
+
+    if (!$del) {
+        if ($list) {
+            foreach ($watcherlist as $watcher) {
+                $q = new w2p_Database_Query;
+                $q->addQuery('user_id, c.contact_email');
+                $q->addTable('users');
+                $q->addJoin('contacts','c','user_contact = contact_id');
+                $q->addWhere('user_id=' . $watcher);
+                if ($notify_all) {
+                    $rows = $q->loadlist($sql);
+                    $email_list = array();
+                    foreach ($rows as $row) {
+                        # Send the notification that they've been added to a watch list.
+                        //KZHAO 8-3-2006: only when users choose to send emails
+                        if (!in_array($row['user_id'],$current_users)) {
+                            $email_list[] = $row['contact_email'];
+                        }
+                    }
+                    $hditem->notifymsg(NEW_WATCHER_LOG, '', $email_list);
+                }
+
+                $sql = "INSERT INTO helpdesk_item_watchers VALUES(". $hditem->item_id . "," . $watcher . ",'Y')";
+                db_exec($sql);
+            }
+        }
+    }
+}
