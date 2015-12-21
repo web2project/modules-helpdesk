@@ -4,7 +4,6 @@ if (!defined('W2P_BASE_DIR')) {
 }
 
 require_once($w2Pconfig['root_dir'] . "helpdesk.functions.php");
-require_once($w2Pconfig['root_dir'] . "vw_idx_handler.php");
 
 // Show my items
 vw_idx_handler(2);

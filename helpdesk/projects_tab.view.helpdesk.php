@@ -4,14 +4,14 @@ if (!defined('W2P_BASE_DIR')) {
 }
 
 require_once($w2Pconfig['root_dir'] . "/modules/helpdesk/helpdesk.functions.php");
-require_once($w2Pconfig['root_dir'] . "/modules/helpdesk/vw_idx_handler.php");
 
 global $AppUI, $project_id, $deny, $canRead, $canEdit, $w2Pconfig, $showCompany, $company_id;
 $showCompany = false;
+
 if (canView('helpdesk')) {
-        if (canEdit('helpdesk')) {
-                echo '<a href="./index.php?m=helpdesk&a=addedit&project_id=' . $project_id . '&company_id=' . $company_id . '">' . $AppUI->_('Add Issue') . '</a>';
-                echo w2PshowImage('stock_attach-16.png', 16, 16, '', '', $m);
-        }
-vw_idx_handler(3);
+    if (canEdit('helpdesk')) {
+        echo '<a href="./index.php?m=helpdesk&a=addedit&project_id=' . $project_id . '&company_id=' . $company_id . '">' . $AppUI->_('Add Issue') . '</a>';
+        echo w2PshowImage('stock_attach-16.png', 16, 16, '', '', $m);
+    }
+    vw_idx_handler(3);
 }
