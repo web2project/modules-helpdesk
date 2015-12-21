@@ -47,10 +47,10 @@ if ($do_task_log) { // called from HD task log
         $hditem->item_assigned_to = $new_assignee;
         $update_item = true;
     }
-        if (($msg = $hditem->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
             $AppUI->redirect();
     if ($update_item) {
+        if (!$hditem->store()) {
         }
     }
 
@@ -70,7 +70,7 @@ if ($do_task_log) { // called from HD task log
     $AppUI->setMsg('Task Log');
 
     $obj->task_log_costcode = $obj->task_log_costcode;
-    if ($msg = $obj->store() !== true) {
+    if (!$obj->store()) {
         $AppUI->setMsg( $msg, UI_MSG_ERROR );
         $AppUI->redirect();
     } else {
@@ -100,11 +100,11 @@ if ($do_task_log) { // called from HD task log
     if ($del) {// to delete an item
         $hditem->load( $item_id );
         $hditem->item_updated = $udate;
-        if (($msg = $hditem->store()) !== true) {
+        if (!$hditem->store()) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
             $AppUI->redirect();
         }
-        if (($msg = $hditem->delete())) {
+        if ($hditem->delete()) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
         } else {
             $AppUI->setMsg( 'deleted', UI_MSG_OK, true );
@@ -198,7 +198,7 @@ if ($do_task_log) { // called from HD task log
             $hditem->item_summary=$hditem->item_summary . $hd_file_info;
         }// end of file uploading
 
-        if (($msg = $hditem->store()) !== true) {
+        if (!$hditem->store()) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
         } else {
             if ($new_item) {
