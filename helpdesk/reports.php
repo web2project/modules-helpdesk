@@ -14,10 +14,10 @@ if (!$canRead) {
     $AppUI->redirect(ACCESS_DENIED);
 }
 
-$can_view_reports = $HELPDESK_CONFIG['minimum_report_level']>=$AppUI->user_type;
-if (!$can_view_reports) {
-    $AppUI->redirect(ACCESS_DENIED);
-}
+//$can_view_reports = $HELPDESK_CONFIG['minimum_report_level']>=$AppUI->user_type;
+//if (!$can_view_reports) {
+//    $AppUI->redirect(ACCESS_DENIED);
+//}
 
 $obj = new CProject();
 $q = new w2p_Database_Query;
