@@ -27,30 +27,30 @@ if ($do_task_log) { // called from HD task log
     $new_assignee = w2PgetParam( $_POST, 'item_assigned_to', 0 );
     $users = getAllowedUsers();
     $log_status_msg='';
-    $update_item=0;
+    $update_item = false;
 
     if ($new_status!=$hditem->item_status) {
         $status_msg = $hditem->log_status(11,$AppUI->_($ist[$hditem->item_status]),$AppUI->_($ist[$new_status]));
         $log_status_msg .= $status_msg . "\n";
         $hditem->item_status = $new_status;
-        $update_item=1;
+        $update_item = true;
     }
     if ($new_calltype!=$hditem->item_calltype) {
         $status_msg = $hditem->log_status(9,$AppUI->_($ict[$hditem->item_calltype]),$AppUI->_($ict[$new_calltype]));
         $log_status_msg .= $status_msg . "\n";
         $hditem->item_calltype = $new_calltype;
-        $update_item=1;
+        $update_item = true;
     }
     if ($new_assignee!=$hditem->item_assigned_to) {
         $status_msg = $hditem->log_status(5,$AppUI->_($users[$hditem->item_assigned_to]),$AppUI->_($users[$new_assignee]));
         $log_status_msg .= $status_msg . "\n";
         $hditem->item_assigned_to = $new_assignee;
-        $update_item=1;
+        $update_item = true;
     }
-    if ($update_item==1) {
         if (($msg = $hditem->store()) !== true) {
             $AppUI->setMsg( $msg, UI_MSG_ERROR );
             $AppUI->redirect();
+    if ($update_item) {
         }
     }
 
