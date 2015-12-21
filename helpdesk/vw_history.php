@@ -3,7 +3,7 @@ if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
 
-global $HELPDESK_CONFIG, $hditem, $isa, $m, $item_id;
+global $AppUI, $HELPDESK_CONFIG, $hditem, $isa, $m, $item_id;
 
 // User's specified format for date and time
 $df = $AppUI->getPref('SHDATEFORMAT');
