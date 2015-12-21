@@ -3,7 +3,9 @@ if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
 
-global $AppUI;
+include_once 'helpdesk.functions.php';
+
+global $AppUI, $HELPDESK_CONFIG;
 
 $q = new w2p_Database_Query;
 $q->addQuery('helpdesk_items.*, CONCAT(co.contact_first_name,\' \',co.contact_last_name) assigned_fullname,

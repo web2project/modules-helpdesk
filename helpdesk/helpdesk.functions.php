@@ -462,7 +462,7 @@ function doWatchers($list, $hditem, $notify_all) {//KZHAO 8-7-2006
  */
 function vw_idx_handler($type)
 {
-    global $m, $ipr, $ist, $AppUI;
+    global $m, $ipr, $ist, $AppUI, $HELPDESK_CONFIG;
     global $project_id;
 
     $ipr = w2PgetSysVal( 'HelpDeskPriority' );
