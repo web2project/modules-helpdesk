@@ -9,13 +9,16 @@ $stats = array();
 
 $item_perms = getItemPerms();
 
+$ict = w2PgetSysVal( 'HelpDeskCallType' );
+$ist = w2PgetSysVal('HelpDeskStatus');
+
 foreach ($ict as $k => $v) {
-  $q = new w2p_Database_Query;
-  $q->addQuery('item_status, count(item_id)');
-  $q->addTable('helpdesk_items');
-  $q->addWhere('item_calltype=' . '\'' . $k . '\' ');
-  $q->addGroup('item_status');
-  $stats[$k] = $q->loadHashList();
+    $q = new w2p_Database_Query;
+    $q->addQuery('item_status, count(item_id)');
+    $q->addTable('helpdesk_items');
+    $q->addWhere('item_calltype=' . '\'' . $k . '\' ');
+    $q->addGroup('item_status');
+    $stats[$k] = $q->loadHashList();
 }
 
 ?>
