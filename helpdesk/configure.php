@@ -40,11 +40,6 @@ $user_types = arrayMerge( $utypes, array( '-1' => $AppUI->_('None') ) );
 */
 $config_options = array(
 	"heading1" => $AppUI->_('Paging Options'),
-	"items_per_page" => array(
-		"description" => $AppUI->_('Helpdesk Items Per Page'),
-		"value" => 30,
-		'type' => 'text'
-	),
 	"status_log_items_per_page" => array(
 		"description" => $AppUI->_('Helpdesk Logs Per Page'),
 		"value" => 15,

@@ -392,7 +392,7 @@ if ($orderdesc) {
 }
 
 // Pagination
-$items_per_page = $HELPDESK_CONFIG['items_per_page'];
+$items_per_page = w2PgetConfig('page_size', 50);
 
 // Figure out number of total results, but do not retrieve
 $total_results = w2p_Database_Connection::num_rows($q->exec());
