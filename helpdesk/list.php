@@ -58,7 +58,7 @@ if ($HELPDESK_CONFIG['search_criteria_search']) {
                . $AppUI->_('Search')
                . ":</label></td><td nowrap=\"nowrap\">"
                . "<input type=\"text\" name=\"search\" id=\"search\" class=\"text\" value=\"".$search."\" size=\"12\">"
-               . " <input type=\"submit\" value=\""
+               . "<input type=\"submit\" value=\""
                . $AppUI->_('Search')
                . "\" class=\"button\" /></td>";
   }
@@ -390,10 +390,13 @@ if ($orderby == 'project_name') {
 if ($orderdesc) {
   $order .= ' DESC';
 }
+
 // Pagination
 $items_per_page = $HELPDESK_CONFIG['items_per_page'];
+
 // Figure out number of total results, but do not retrieve
-$total_results = db_num_rows($q->exec());
+$total_results = w2p_Database_Connection::num_rows($q->exec());
+
 
 // Figure out the offset
 $offset = $page * $items_per_page;
@@ -454,7 +457,7 @@ function changeList()
 ?>
 <table width="100%" border="0" cellpadding="2" cellspacing="1" class="tbl">
 <tr>
-  <th align="right" nowrap="nowrap">&nbsp;</th>
+  <th align="right" nowrap="nowrap"><?php if (!isset($items_per_page)) {echo "NS";} else {echo $items_per_page;} ?></th>
   <th nowrap="nowrap"><?php echo sort_header("item_id", $AppUI->_('Number')); ?></th>
   <th nowrap="nowrap"><?php echo sort_header("item_created", $AppUI->_('Opened On')); ?></th>
   <th nowrap="nowrap"><?php echo sort_header("item_requestor", $AppUI->_('Requestor')); ?></th>

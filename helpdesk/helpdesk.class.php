@@ -333,7 +333,6 @@ class CHelpDesk extends w2p_Core_BaseObject
         $search['table_link'] = 'index.php?m=helpdesk&a=view&item_id=';
         $search['table_title'] = 'Helpdesk';
         $search['table_orderby'] = 'item_title';
-        $search['table_orderby'] = 'item_title';
         $search['search_fields'] = array('item_title', 'item_summary',
             'item_application', 'item_requestor', 'item_requestor_email',
             'task_log_name', 'task_log_description');

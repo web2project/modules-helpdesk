@@ -179,9 +179,9 @@ if ($do_report) {
 	}
 	$q->addOrder('hi.item_id');
 	$Task_List = $q->exec();
-		
+
 	if (function_exists('styleRenderBoxBottom')) {
-		echo styleRenderBoxBottom();
+		echo $AppUI->getTheme()->styleRenderBoxBottom();
 	}
 	echo '<br />';
 	if (function_exists('styleRenderBoxTop')) {
@@ -201,7 +201,7 @@ if ($do_report) {
 	  echo "<th>Status</th>";
 	  echo "<th>Priority</th>";
   echo "</tr>";
-	
+
 	$pdfdata = array();
 	$columns = array(
 		"<b>".$AppUI->_('Number')."</b>",
@@ -215,14 +215,14 @@ if ($do_report) {
 	);
 	while ($Tasks = db_fetch_assoc($Task_List)){
 		$log_date = new w2p_Utilities_Date( $Tasks['item_created'] );
-    $q = new w2p_Database_Query; 
+    $q = new w2p_Database_Query;
     $q->addQuery('TRIM(SUBSTRING_INDEX(SUBSTRING(sysval_value, LOCATE(\''.
                   $Tasks['item_status'] . '|\', sysval_value) + 1), \'\\n\', 1)) item_status_desc');
     $q->addTable('sysvals');
     $q->addWhere('sysval_title =\'HelpDeskStatus\'');
     $Log_Status = $q->loadHash();
 		if (substr($Log_Status['item_status_desc'], 0, 6) != 'Closed') {
-      $q = new w2p_Database_Query; 
+      $q = new w2p_Database_Query;
       $q->addQuery('TRIM(SUBSTRING_INDEX(SUBSTRING(sysval_value, LOCATE(\''.
                     $Tasks['item_status'] . '|\', sysval_value) + 1), \'\\n\', 1)) item_priority_desc');
       $q->addTable('sysvals');
@@ -239,7 +239,7 @@ if ($do_report) {
   		$str .= "<td>".$Log_Priority['item_priority_desc']."</td>";
   		$str .= "</tr>";
   		echo $str;
-  
+
   		$pdfdata[] = array(
   			$Tasks['item_id'],
   			$log_date->format( $df ),
@@ -250,8 +250,8 @@ if ($do_report) {
   			$Log_Status['item_status_desc'],
   			$Log_Priority['item_priority_desc'],
   		);
-  
-      $q = new w2p_Database_Query; 
+
+      $q = new w2p_Database_Query;
       $q->addQuery('tl.task_log_date, tl.task_log_description, concat(rc.contact_first_name, " ", rc.contact_last_name) created_by');
       $q->addTable('task_log','tl');
       $q->addTable('users','ru');
@@ -275,7 +275,7 @@ if ($do_report) {
     		$str .= "<td>"."</td>";
   	  	$str .= "</tr>";
     		echo $str;
-    
+
     		$pdfdata[] = array(
   	  		$Tasks['item_id']."/".$Row_Count,
     			$log_date->format( $df ),
@@ -294,7 +294,7 @@ if ($do_report) {
 	echo "</table>";
 if ($log_pdf) {
 	// make the PDF file
-    $q = new w2p_Database_Query; 
+    $q = new w2p_Database_Query;
     $q->addTable('projects');
     $q->addQuery('project_name');
 		$q->addWhere('project_id=' . (int)$project_id);
