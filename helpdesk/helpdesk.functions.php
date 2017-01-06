@@ -3,7 +3,7 @@ if (!defined('W2P_BASE_DIR')) {
     die('You should not access this file directly');
 }
 
-include_once($w2Pconfig['root_dir'] . "/modules/helpdesk/config.php");
+include_once w2PgetConfig('root_dir') . "/modules/helpdesk/config.php";
 
 function getAllowedUsers($companyid=0,$activeOnly=0)
 {
@@ -264,7 +264,7 @@ function dump($var)
 // convert mysql date format into PHP date format
 function get_mysql_to_epoch($sqldate)
 {
-    list( $year, $month, $day, $hour, $minute, $second )= split( '([^0-9])', $sqldate );
+    list( $year, $month, $day, $hour, $minute, $second )= explode( '([^0-9])', $sqldate );
     //echo $year.",".$month.",".$day;
     return date( 'U', mktime( $hour, $minute, $second, $month, $day, $year) );
 }
@@ -414,7 +414,7 @@ function doWatchers($list, $hditem, $notify_all) {//KZHAO 8-7-2006
     global $AppUI;
 
     # Create the watcher list
-    $watcherlist = split(',', $list);
+    $watcherlist = explode(',', $list);
 
     $q = new w2p_Database_Query;
     $q->addQuery('user_id');

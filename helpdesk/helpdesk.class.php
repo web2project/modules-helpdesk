@@ -498,7 +498,6 @@ class CHelpDesk extends w2p_Core_BaseObject
         if (db_error()) {
             return false;
         }
-        $log_id = mysql_insert_id();
 
         if (($this->item_notify) && $notify==1) {
             $this->notifymsg(($audit_code==0) ? NEW_ITEM_LOG : STATUS_LOG , $comment);
