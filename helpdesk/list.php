@@ -667,33 +667,3 @@ echo '</td></tr>';
   }
 
   print "</small></center>";
-
-// Returns a header link used to sort results
-// TODO Probably need a better up/down arrow
-function sort_header($field, $name)
-{
-  global $orderby, $orderdesc;
-
-  $arrow = "";
-
-  if (!$_REQUEST['project_id'] && !$_REQUEST['company_id']) {
-    $link = "<a class=\"hdr\" href=\"?m=helpdesk&a=list&orderby=$field&orderdesc=";
-  } else {
-    if (!$_REQUEST['project_id']) {
-      $link = "<a class=\"hdr\" href=\"?m=companies&a=view&company_id={$_REQUEST['company_id']}&orderby=$field&orderdesc=";
-    } else {
-      $link = "<a class=\"hdr\" href=\"?m=projects&a=view&project_id={$_REQUEST['project_id']}&orderby=$field&orderdesc=";
-    }
-  }
-
-  if ($orderby == $field) {
-    $link .= $orderdesc ? "0" : "1";
-    $arrow .= $orderdesc ? " &uarr;" : " &darr;";
-  } else {
-    $link .= "0";
-  }
-
-  $link .= "\">$name</a>$arrow";
-
-  return $link;
-}
