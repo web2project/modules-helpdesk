@@ -210,7 +210,7 @@ $config_options = array(
 		'buttons' => array (1 => $AppUI->_('Always'),
                 		    0 => $AppUI->_('Status change'))
 	),
-	"notity_email_address" => array(
+	"notify_email_address" => array(
           "description" => $AppUI->_('New unassigned items notification address'),
 	        "value" => 'support@yourcompany.com',
 	        'type' => 'text'

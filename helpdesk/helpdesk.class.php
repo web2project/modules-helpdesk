@@ -276,7 +276,7 @@ class CHelpDesk extends w2p_Core_BaseObject
                 if ($type==NEW_ITEM_LOG) {
                     $subject .= $this->_AppUI->_('Created');
                     if (!isset($this->item_status) || ($ist[$this->item_status]=='Unassigned') ) {
-                        $email_list[] = $HELPDESK_CONFIG['notity_email_address'];
+                        $email_list[] = $HELPDESK_CONFIG['notify_email_address'];
                     }
                 } else {
                     $subject .= $this->_AppUI->_('Updated');
@@ -311,7 +311,7 @@ class CHelpDesk extends w2p_Core_BaseObject
             if ($mail->ValidEmail($this->_AppUI->user_email)) {
                 $email = $this->_AppUI->user_email;
             } else {
-            $email = $HELPDESK_CONFIG['notity_email_address'];
+            $email = $HELPDESK_CONFIG['notify_email_address'];
             }
           // Mail it
             $mail->Subject($subject, $locale_char_set);

@@ -28,6 +28,6 @@ $HELPDESK_CONFIG['search_criteria_service'] = '1';
 $HELPDESK_CONFIG['default_notify_by_email'] = '1';
 $HELPDESK_CONFIG['task_watchers_notification'] = '1';
 $HELPDESK_CONFIG['task_requestor_notification'] = '1';
-$HELPDESK_CONFIG['notity_email_address'] = w2PgetConfig('admin_email', 'admin@web2project.net');
+$HELPDESK_CONFIG['notify_email_address'] = w2PgetConfig('admin_email', 'admin@web2project.net');
 $HELPDESK_CONFIG['email_subject'] = '[HELPDESK]';
 $HELPDESK_CONFIG['email_header'] = 'Ticket Management Registry';
